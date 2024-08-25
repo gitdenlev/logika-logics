@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 // Маршрут для отримання даних з Google Sheets
 app.get("/api/sheet-data", async (req, res) => {
   const spreadsheetId = "1Q0uE0MHlDQk40cCUaS61xI6zAK4KZdbUIqvSUxh6KxQ";
-  const range = "'СБ ПАЙТОН 2 12:30'!G3"; // Вкажіть ваш діапазон
+  const range = "'СБ ПАЙТОН 2 12:30'!G5:G12"; // Вкажіть ваш діапазон
 
   try {
     const response = await sheets.spreadsheets.values.get({

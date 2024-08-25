@@ -4,7 +4,7 @@ import NotFound from '../views/NotFound.vue';
 import Scratch from "../views/courses/Scratch.vue";
 import Gamedesign from "../views/courses/Gamedesign.vue";
 import Webdesign from '../views/courses/Webdesign.vue';
-import Python from '../views/courses/Python.vue'; 
+import Python from '@/views/courses/Python.vue'; 
 
 
 const router = createRouter({

@@ -2,30 +2,33 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
+// Дані про учнів
 const students = [
-  { student: "Білич Андрій", logics: 335 },
-  { student: "Глушко Артем", logics: 315 },
-  { student: "Головенко Василь", logics: 319 },
-  { student: "Кисельов Артем", logics: 330 },
-  { student: "Леміш Аліна", logics: 310 },
-  { student: "Лозова Олекснадра", logics: 310 },
-  { student: "Хоменко Матвій", logics: 310 },
-  { student: "Шматов Богдан", logics: 310 },
+  { name: "Білич Андрій", logics: ref(0) },
+  { name: "Глушко Артем", logics: ref(0) },
+  { name: "Головенко Василь", logics: ref(0) },
+  { name: "Кисельов Артем", logics: ref(0) },
+  { name: "Леміш Аліна", logics: ref(0) },
+  { name: "Лозова Олекснадра", logics: ref(0) },
+  { name: "Хоменко Матвій", logics: ref(0) },
+  { name: "Шматов Богдан", logics: ref(0) },
 ];
 
-const logics = [];
-
-const sheetData = ref("");
-const loading = ref(true); // Loading state
+const loading = ref(true); // Стан завантаження
 
 onMounted(async () => {
   try {
     const response = await axios.get("/api/sheet-data");
-    sheetData.value = response.data;
+    const sheetData = response.data;
+
+    // Прив'язуємо отримані дані до конкретного учня
+    students.forEach((student, index) => {
+      student.logics.value = parseInt(sheetData[index][0], 10); // Перетворюємо значення на число
+    });
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
-    loading.value = false; // Set loading to false once data is fetched
+    loading.value = false; // Завершуємо завантаження
   }
 });
 
@@ -43,11 +46,11 @@ import { RouterLink } from "vue-router";
         <a :href="course.link" class="course-link">{{ course.name }}</a>
       </li>
     </ul>
-        <h2 class="group-time">Субота 12:30</h2>
+    <h2 class="group-time">Субота 12:30</h2>
 
-    <!-- Loading spinner -->
+    <!-- Спінер завантаження -->
     <div v-if="loading" class="spinner"></div>
-    <!-- Table -->
+    <!-- Таблиця -->
     <table v-else class="logics-table">
       <thead>
         <tr>
@@ -56,11 +59,9 @@ import { RouterLink } from "vue-router";
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.student">
-          <td class="student-name">{{ student.student }}</td>
-          <td v-for="(logics, index) in sheetData" :key="index">
-            {{ logics }}
-          </td>
+        <tr v-for="student in students" :key="student.name">
+          <td class="student-name">{{ student.name }}</td>
+          <td>{{ student.logics }}</td>
         </tr>
       </tbody>
     </table>
@@ -68,6 +69,7 @@ import { RouterLink } from "vue-router";
 </template>
 
 <style scoped>
+/* Всі стилі, які ти вже створив, залишаються без змін */
 .container {
   margin: 0 auto;
   padding: 20px;
@@ -139,20 +141,20 @@ tbody tr:hover {
   margin-top: 20px;
 }
 
-/* Spinner style */
+/* Стиль спінера */
 .spinner {
-  border: 4px solid #f3f3f3; /* Light grey */
-  border-top: 4px solid #7a3db8; /* Purple */
+  border: 4px solid #f3f3f3; /* Світло-сірий */
+  border-top: 4px solid #7a3db8; /* Фіолетовий */
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
   margin: 0 auto;
   text-align: center;
-  padding-top: 20px; /* Center vertically */
+  padding-top: 20px; /* Вирівнювання по вертикалі */
 }
 
-/* Spinner animation */
+/* Анімація спінера */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -161,6 +163,4 @@ tbody tr:hover {
     transform: rotate(360deg);
   }
 }
-
-
 </style>
