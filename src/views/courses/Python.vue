@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { RouterLink } from "vue-router";
 
 // Дані про учнів
 const students = [
