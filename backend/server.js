@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/courses/python", (req, res) => {
+  res.send("Hello World!");
+});
+
 
 
 app.get("/api/courses/python", async (req, res) => {
