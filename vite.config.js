@@ -1,17 +1,18 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import path from "path";
 
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      "@": "/src",
+      "@": path.resolve(__dirname, "src"),
     },
   },
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000", // Порт вашого backend сервера
+        target: "http://localhost:3000", // Змініть на ваш бекенд сервер
         changeOrigin: true,
         secure: false,
       },

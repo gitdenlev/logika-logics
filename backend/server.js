@@ -1,4 +1,3 @@
-// backend/index.js (ваш бекенд)
 import express from "express";
 import dotenv from "dotenv";
 import { google } from "googleapis";
@@ -19,10 +18,11 @@ const auth = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 
 const sheets = google.sheets({ version: "v4", auth });
 
+app.use(express.json()); // Додайте це, якщо обробляєте JSON
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
-})
-
+});
 
 // Маршрут для отримання даних з Google Sheets
 app.get("/api/sheet-data", async (req, res) => {
@@ -34,8 +34,10 @@ app.get("/api/sheet-data", async (req, res) => {
       spreadsheetId,
       range,
     });
-    res.json(response.data.values);
 
+    // Витягти дані у потрібному форматі
+    const data = response.data.values.map((row) => row[0]); // Припускаємо, що дані в одному стовпці
+    res.json(data);
   } catch (error) {
     console.error("Error fetching data from Google Sheets:", error);
     res.status(500).send("Error fetching data from Google Sheets");
@@ -45,4 +47,3 @@ app.get("/api/sheet-data", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-

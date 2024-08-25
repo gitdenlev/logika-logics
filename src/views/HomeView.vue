@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { RouterLink } from "vue-router";
 
 const courses = [
   { name: "Комп'ютерна грамотність", link: "/courses/compsci" },
@@ -31,7 +32,7 @@ function toggleIcons() {
     <h2>Виберіть курс на якому навчається ваша дитина</h2>
     <ul class="course-list">
       <li v-for="course in courses" :key="course.name">
-        <a :href="course.link" class="course-link">{{ course.name }}</a>
+        <RouterLink :to="course.link" class="course-link">{{ course.name }}</RouterLink>
       </li>
     </ul>
   </div>
