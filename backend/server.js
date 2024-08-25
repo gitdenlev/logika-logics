@@ -25,6 +25,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+
+
 app.get("/api/courses/python", async (req, res) => {
   const spreadsheetId = process.env.SPREADSHEET_ID;
   const ranges = ["G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"];
