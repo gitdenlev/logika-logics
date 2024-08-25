@@ -1,11 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import { google } from "googleapis";
+import cors from "cors"; // Импортируй cors
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT; // Додати значення за замовчуванням
+const PORT = process.env.PORT; // Значение по умолчанию
+
+// Используй cors
+app.use(cors());
 
 const keys = {
   private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -29,17 +33,17 @@ app.get("/courses/python", (req, res) => {
   res.send("Hello World!");
 });
 
-
-
 app.get("/api/courses/python", async (req, res) => {
   const spreadsheetId = process.env.SPREADSHEET_ID;
   const ranges = ["G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"];
-  const range = `'Python Субота 12:30'!${ranges[0]}:${ranges[ranges.length - 1]}`;
+  const range = `'Python Субота 12:30'!${ranges[0]}:${
+    ranges[ranges.length - 1]
+  }`;
 
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range
+      range,
     });
 
     const data = response.data.values; // Припускаємо, що дані в одному стовпці

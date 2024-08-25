@@ -33,7 +33,6 @@ onMounted(async () => {
   }
 });
 
-import { RouterLink } from "vue-router";
 </script>
 
 <template>
