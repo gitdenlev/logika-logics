@@ -7,7 +7,6 @@ const students = [
   { student: "Осадчий Марк", logics: 310 },
 ];
 
-
 const students2 = [
   { student: "Бутук Ярослав", logics: 335 },
   { student: "Довбня Михайло", logics: 315 },
@@ -25,11 +24,6 @@ import { RouterLink } from "vue-router";
       ><img src="/arrow.svg" alt="arrow" width="40"
     /></RouterLink>
     <h2>Курс Геймдизайну</h2>
-    <ul class="course-list">
-      <li v-for="course in courses" :key="course.name">
-        <a :href="course.link" class="course-link">{{ course.name }}</a>
-      </li>
-    </ul>
 
     <h2 class="group-time">Субота 10:30</h2>
     <table class="logics-table">
@@ -61,6 +55,23 @@ import { RouterLink } from "vue-router";
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="faq-container" @click="toggleIcons">
+    <img src="/faq.svg" alt="FAQ" width="40" />
+    <img
+      :class="{ visible: showIcons, unvisible: !showIcons }"
+      src="/telegram.svg"
+      alt="Telegram"
+      width="40"
+      class="telegram-icon"
+    />
+    <img
+      :class="{ visible: showIcons, unvisible: !showIcons }"
+      src="/call.svg"
+      alt="Phone"
+      width="40"
+      class="phone-icon"
+    />
   </div>
 </template>
 

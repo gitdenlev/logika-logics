@@ -1,10 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import { google } from "googleapis";
+
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT; // Додати значення за замовчуванням
 
 const keys = {
   private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -18,28 +19,23 @@ const auth = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 
 const sheets = google.sheets({ version: "v4", auth });
 
-app.use(express.json()); // Додайте це, якщо обробляєте JSON
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/api/courses/scratch", async (req, res) => {
-  res.send("Hello World!");
-})
-
-// Маршрут для отримання даних з Google Sheets
 app.get("/api/courses/python", async (req, res) => {
-  const spreadsheetId = "1Q0uE0MHlDQk40cCUaS61xI6zAK4KZdbUIqvSUxh6KxQ";
-  const range = "'СБ ПАЙТОН 2 12:30'!G5"; // Вкажіть ваш діапазон
+  const spreadsheetId = process.env.SPREADSHEET_ID;
+  const ranges = ["G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"];
+  const range = `'Python Субота 12:30'!${ranges[0]}:${ranges[ranges.length - 1]}`;
 
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range,
+      range
     });
 
-    // Витягти дані у потрібному форматі
     const data = response.data.values; // Припускаємо, що дані в одному стовпці
     res.json(data);
   } catch (error) {

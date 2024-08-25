@@ -41,13 +41,8 @@ import { RouterLink } from "vue-router";
       <img src="/arrow.svg" alt="arrow" width="40" />
     </RouterLink>
     <h2>Курс Python</h2>
-    <ul class="course-list">
-      <li v-for="course in courses" :key="course.name">
-        <a :href="course.link" class="course-link">{{ course.name }}</a>
-      </li>
-    </ul>
+    <h2 class="table-title">Таблиця Логіків</h2>
     <h2 class="group-time">Субота 12:30</h2>
-
     <!-- Спінер завантаження -->
     <div v-if="loading" class="spinner"></div>
     <!-- Таблиця -->
@@ -138,7 +133,6 @@ tbody tr:hover {
 }
 .group-time {
   text-align: center;
-  margin-top: 20px;
 }
 
 /* Стиль спінера */

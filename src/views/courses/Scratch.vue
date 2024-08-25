@@ -16,12 +16,6 @@ import { RouterLink } from "vue-router";
       ><img src="/arrow.svg" alt="arrow" width="40"
     /></RouterLink>
     <h2>Курс Візуального програмування</h2>
-    <ul class="course-list">
-      <li v-for="course in courses" :key="course.name">
-        <a :href="course.link" class="course-link">{{ course.name }}</a>
-      </li>
-    </ul>
-
     <h2 class="table-title">Таблиця Логіків</h2>
     <table class="logics-table">
       <thead>
