@@ -18,7 +18,7 @@ const loading = ref(true); // Стан завантаження
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/api/sheet-data");
+    const response = await axios.get("/api/courses/python");
     const sheetData = response.data;
 
     // Прив'язуємо отримані дані до конкретного учня

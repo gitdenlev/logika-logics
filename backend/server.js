@@ -24,10 +24,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/api/courses/scratch", async (req, res) => {
+  res.send("Hello World!");
+})
+
 // Маршрут для отримання даних з Google Sheets
-app.get("/api/sheet-data", async (req, res) => {
+app.get("/api/courses/python", async (req, res) => {
   const spreadsheetId = "1Q0uE0MHlDQk40cCUaS61xI6zAK4KZdbUIqvSUxh6KxQ";
-  const range = "'СБ ПАЙТОН 2 12:30'!G5:G12"; // Вкажіть ваш діапазон
+  const range = "'СБ ПАЙТОН 2 12:30'!G5"; // Вкажіть ваш діапазон
 
   try {
     const response = await sheets.spreadsheets.values.get({
@@ -36,7 +40,7 @@ app.get("/api/sheet-data", async (req, res) => {
     });
 
     // Витягти дані у потрібному форматі
-    const data = response.data.values.map((row) => row[0]); // Припускаємо, що дані в одному стовпці
+    const data = response.data.values; // Припускаємо, що дані в одному стовпці
     res.json(data);
   } catch (error) {
     console.error("Error fetching data from Google Sheets:", error);
