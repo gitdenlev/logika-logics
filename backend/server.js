@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { google } from "googleapis";
 import cors from "cors"; // Импортируй cors
+import path from "path";
 
 dotenv.config();
 
@@ -25,12 +26,8 @@ const sheets = google.sheets({ version: "v4", auth });
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.get("/courses/python", (req, res) => {
-  res.send("Hello World!");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
 
 app.get("/api/courses/python", async (req, res) => {
