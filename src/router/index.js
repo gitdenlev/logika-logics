@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '..courses'
+import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import Scratch from "../views/courses/Scratch.vue";
 import Gamedesign from "../views/courses/Gamedesign.vue";
