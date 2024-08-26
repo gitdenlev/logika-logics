@@ -1,14 +1,18 @@
+<script setup>
+import RouterLink from "vue-router";
+</script>
+
+
+
 <template>
   <div class="not-found">
     <h1>404</h1>
     <p>Упс! Схоже такої сторінки не існує</p>
-    <router-link to="/">Повернутись на головну</router-link>
+    <RouterLink to="/">Повернутись на головну</RouterLink>
   </div>
 </template>
 
-<script setup>
 
-</script>
 
 <style scoped>
 .not-found {

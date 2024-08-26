@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink } from "vue-router";
+
 const students = [
   { student: "Булах Кіра", logics: 335 },
   { student: "Виговський Матвій", logics: 315 },
@@ -15,7 +17,6 @@ const students2 = [
   { student: "Чикаловський Станіслав", logics: 310 },
 ];
 
-import { RouterLink } from "vue-router";
 </script>
 
 <template>

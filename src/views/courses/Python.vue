@@ -32,7 +32,6 @@ onMounted(async () => {
     loading.value = false; // Завершуємо завантаження
   }
 });
-
 </script>
 
 <template>
