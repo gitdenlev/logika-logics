@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink } from "vue-router";
 const students = [
   { student: "Березань Олександра", logics: 335 },
   { student: "Дупак Владимир", logics: 315 },
@@ -26,9 +25,9 @@ const students3 = [
 
 <template>
   <div class="container">
-    <RouterLink to="/"
+    <router-link to="/"
       ><img src="/arrow.svg" alt="arrow" width="40"
-    /></RouterLink>
+    /></router-link>
     <h2>Курс Вебдизайну</h2>
     
 

@@ -2,16 +2,18 @@ import express from "express";
 import dotenv from "dotenv";
 import { google } from "googleapis";
 import cors from "cors";
-import path from "path";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT; // Значение по умолчанию
 
-// Используй cors
+// Используйте cors
 app.use(cors());
 
+// Установите переменные для Google API
 const keys = {
   private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
   client_email: process.env.GOOGLE_CLIENT_EMAIL,
@@ -24,11 +26,15 @@ const auth = new google.auth.JWT(keys.client_email, null, keys.private_key, [
 
 const sheets = google.sheets({ version: "v4", auth });
 
+// Определите пути
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use(express.json());
 
 // Обслуживаем основной файл для SPA
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+  res.sendFile(join(__dirname, "dist", "index.html"));
 });
 
 // Обслуживаем API запросы
@@ -45,7 +51,7 @@ app.get("/api/courses/python", async (req, res) => {
       range,
     });
 
-    const data = response.data.values; // Припускаємо, що дані в одному стовпці
+    const data = response.data.values; // Предполагаем, что данные в одном столбце
     res.json(data);
   } catch (error) {
     console.error("Error fetching data from Google Sheets:", error);
@@ -55,7 +61,7 @@ app.get("/api/courses/python", async (req, res) => {
 
 // Обслуживаем остальные маршруты для SPA
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+  res.sendFile(join(__dirname, "dist", "index.html"));
 });
 
 app.listen(PORT, () => {

@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink } from "vue-router";
 import FAQ from "@/components/FAQ.vue";
 
 const courses = [
@@ -24,9 +23,9 @@ const courses = [
     <h2>Виберіть курс на якому навчається ваша дитина</h2>
     <ul class="course-list">
       <li v-for="course in courses" :key="course.name">
-        <RouterLink :to="course.link" class="course-link">{{
+        <router-link :to="course.link" class="course-link">{{
           course.name
-        }}</RouterLink>
+        }}</router-link>
       </li>
     </ul>
   </div>

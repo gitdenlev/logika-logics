@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { RouterLink } from "vue-router";
 
 // Дані про учнів
 const students = [
@@ -36,9 +35,9 @@ onMounted(async () => {
 
 <template>
   <div class="container">
-    <RouterLink to="/">
+    <router-link to="/">
       <img src="/arrow.svg" alt="arrow" width="40" />
-    </RouterLink>
+    </router-link>
     <h2>Курс Python</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
     <h2 class="group-time">Субота 12:30</h2>

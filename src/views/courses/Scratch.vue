@@ -7,14 +7,13 @@ const students = [
   { student: "Панасенко Олеся", logics: 310 },
   { student: "Ткач Кіра", logics: 313 },
 ];
-import { RouterLink } from "vue-router";
 </script>
 
 <template>
   <div class="container">
-    <RouterLink to="/"
+    <router-link to="/"
       ><img src="/arrow.svg" alt="arrow" width="40"
-    /></RouterLink>
+    /></router-link>
     <h2>Курс Візуального програмування</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
     <table class="logics-table">
