@@ -38,7 +38,7 @@ const router = createRouter({
       component: Webdesign,
     },
     {
-      path: "/courses/python",
+      path: "views/courses/python",
       name: "Python",
       component: Python,
     },
