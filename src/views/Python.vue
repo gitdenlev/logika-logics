@@ -23,25 +23,49 @@ const range = "'Python Субота 12:30'!G3:G10"; // Замініть на п�
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
-// onMounted(async () => {
-//   try {
-//     const response = await axios.get(url);
-//     const sheetData = response.data.values;
+onMounted(async () => {
+  try {
+    const response = await axios.get(url);
+    const sheetData = response.data.values;
 
-//     // Прив'язуємо отримані дані до конкретного учня
-//     students.forEach((student, index) => {
-//       student.logics.value = sheetData[index][0]; // Перетворюємо значення на число
-//     });
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//   } finally {
-//     loading.value = false; // Завершуємо завантаження
-//   }
-// });
+    // Прив'язуємо отримані дані до конкретного учня
+    students.forEach((student, index) => {
+      student.logics.value = sheetData[index][0]; // Перетворюємо значення на число
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+    loading.value = false; // Завершуємо завантаження
+  }
+});
 </script>
 
 <template>
-  <h1>Python</h1>
+  <div class="container">
+    <router-link to="/"
+      ><img src="/arrow.svg" alt="arrow" width="40"
+    /></router-link>
+    <h2>Курс Python</h2>
+    <h2 class="table-title">Таблиця Логіків</h2>
+    <h2 class="group-time">Субота 12:30</h2>
+    <!-- Спінер завантаження -->
+    <div v-if="loading" class="spinner"></div>
+    <!-- Таблиця -->
+    <table v-else class="logics-table">
+      <thead>
+        <tr>
+          <th>Учень</th>
+          <th>Кількість логіків</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="student in students" :key="student.name">
+          <td class="student-name">{{ student.name }}</td>
+          <td>{{ student.logics }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <style scoped>

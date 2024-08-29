@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-// import NotFound from '../views/NotFound.vue';
+import NotFound from '../views/NotFound.vue';
 import Scratch from "../views/Scratch.vue";
 import Gamedesign from "../views/Gamedesign.vue";
 import Webdesign from "../views/Webdesign.vue";
@@ -34,5 +34,9 @@ export default createRouter({
       path: "/frontend",
       component: Frontend,
     },
+    {
+      path: "/:pathMatch(.*)*",
+      component: NotFound,
+    }
   ],
 });
