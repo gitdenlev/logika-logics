@@ -54,23 +54,6 @@ const students2 = [
       </tbody>
     </table>
   </div>
-  <div class="faq-container" @click="toggleIcons">
-    <img src="/faq.svg" alt="FAQ" width="40" />
-    <img
-      :class="{ visible: showIcons, unvisible: !showIcons }"
-      src="/telegram.svg"
-      alt="Telegram"
-      width="40"
-      class="telegram-icon"
-    />
-    <img
-      :class="{ visible: showIcons, unvisible: !showIcons }"
-      src="/call.svg"
-      alt="Phone"
-      width="40"
-      class="phone-icon"
-    />
-  </div>
 </template>
 
 <style scoped>

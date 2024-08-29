@@ -14,7 +14,7 @@ const courses = [
 
 <template>
   <div class="container">
-    <h1>Вітаємо на сторінці Logika Logics!</h1>
+    <h1><b>Вітаємо на сторінці Logika Logics!</b></h1>
     <p>
       Тут ви можете переглянути логіки, які діти отримують за роботу на уроці та
       виконання домашніх завдань
@@ -33,11 +33,6 @@ const courses = [
 </template>
 
 <style scoped>
-body {
-  background-color: #f3f0ff;
-  font-family: "Arial", sans-serif;
-}
-
 .container {
   margin: 0 auto;
   padding: 20px;
@@ -48,7 +43,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 50%;
+}
 
+@media (max-width: 1056px) {
+  .container {
+    width: 90%;
+  }
 }
 
 h1 {
@@ -90,5 +91,14 @@ h2 {
 
 .course-link:hover {
   background-color: #5e287c;
+}
+
+@media screen and (max-width: 580px) {
+  .container {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0px;
+    background-color: #f3f0ff;
+  }
 }
 </style>

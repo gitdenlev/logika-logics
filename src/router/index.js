@@ -5,6 +5,7 @@ import Scratch from "@/views/courses/Scratch.vue";
 import Gamedesign from "@/views/courses/Gamedesign.vue";
 import Webdesign from '@/views/courses/Webdesign.vue';
 import Python from '@/views/courses/Python.vue'; 
+import Frontend from "@/views/courses/Frontend.vue";
 
 
 
@@ -40,6 +41,11 @@ const router = createRouter({
       path: "/courses/python",
       name: "Python",
       component: Python,
+    },
+    {
+      path: "/courses/frontend",
+      name: "Frontend",
+      component: Frontend,
     },
   ],
 });

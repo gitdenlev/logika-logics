@@ -9,21 +9,28 @@ const students = [
   { name: "Головенко Василь", logics: ref(0) },
   { name: "Кисельов Артем", logics: ref(0) },
   { name: "Леміш Аліна", logics: ref(0) },
-  { name: "Лозова Олекснадра", logics: ref(0) },
+  { name: "Лозова Олександра", logics: ref(0) },
   { name: "Хоменко Матвій", logics: ref(0) },
   { name: "Шматов Богдан", logics: ref(0) },
 ];
 
 const loading = ref(true); // Стан завантаження
 
+// Ваш API ключ та ID таблиці
+const apiKey = import.meta.env.VITE_API_KEY;
+const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
+const range = "'Python Субота 12:30'!G3:G10"; // Замініть на потрібний діапазон
+
+const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+
 onMounted(async () => {
   try {
-    const response = await axios.get("api/courses/python");
-    const sheetData = response.data;
+    const response = await axios.get(url);
+    const sheetData = response.data.values;
 
     // Прив'язуємо отримані дані до конкретного учня
     students.forEach((student, index) => {
-      student.logics.value = parseInt(sheetData[index][0], 10); // Перетворюємо значення на число
+      student.logics.value = sheetData[index][0]; // Перетворюємо значення на число
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -35,9 +42,9 @@ onMounted(async () => {
 
 <template>
   <div class="container">
-    <router-link to="/">
-      <img src="/arrow.svg" alt="arrow" width="40" />
-    </router-link>
+    <router-link to="/"
+      ><img src="/arrow.svg" alt="arrow" width="40"
+    /></router-link>
     <h2>Курс Python</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
     <h2 class="group-time">Субота 12:30</h2>
@@ -62,7 +69,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Всі стилі, які ти вже створив, залишаються без змін */
 .container {
   margin: 0 auto;
   padding: 20px;

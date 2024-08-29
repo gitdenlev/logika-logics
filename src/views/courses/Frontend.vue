@@ -2,25 +2,21 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const students = ref([
-  { student: "Березань Олександра", logics: 0 },
-  { student: "Дупак Владимир", logics: 0 },
-  { student: "Кірков Євген", logics: 0 },
-  { student: "Оленів Микита", logics: 0 },
-  { student: "Онищенко Володимир", logics: 0 },
-  { student: "Пода Ілля", logics: 0 },
-  { student: "Слабко Роман", logics: 0 },
-]);
-
-const students2 = ref([
-  {student: ""}
-])
+// Дані про учнів
+const students = [
+  { name: "Войко Мирон", logics: ref(0) },
+  { name: "Заможський Юра", logics: ref(0) },
+  { name: "Старун Денис", logics: ref(0) },
+  { name: "Шевченко Єгор", logics: ref(0) },
+  { name: "Шкода Анастасія", logics: ref(0) },
+];
 
 const loading = ref(true); // Стан завантаження
 
-const apiKey = "AIzaSyD3PTXMjw62yY_UMdI0LGVGyGGiDh5_wz4";
-const spreadsheetId = "1Q0uE0MHlDQk40cCUaS61xI6zAK4KZdbUIqvSUxh6KxQ";
-const range = "'Вебдизайн Субота 17:00'!G3:G10";
+// Ваш API ключ та ID таблиці
+const apiKey = import.meta.env.VITE_API_KEY;
+const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
+const range = "'Frontend П'ятниця 15:00'!G3:G7"; // Замініть на потрібний діапазон
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
@@ -30,8 +26,8 @@ onMounted(async () => {
     const sheetData = response.data.values;
 
     // Прив'язуємо отримані дані до конкретного учня
-    students.value.forEach((student, index) => {
-      student.logics = parseInt(sheetData[index][0], 10) || 0; // Перетворюємо значення на число
+    students.forEach((student, index) => {
+      student.logics.value = sheetData[index][0]; // Перетворюємо значення на число
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -46,11 +42,12 @@ onMounted(async () => {
     <router-link to="/"
       ><img src="/arrow.svg" alt="arrow" width="40"
     /></router-link>
-    <h2>Курс Вебдизайну</h2>
+    <h2>Курс Frontend</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
-
-    <h2 class="group-time">Субота 17:00</h2>
+    <h2 class="group-time">П'ятниця  17:00</h2>
+    <!-- Спінер завантаження -->
     <div v-if="loading" class="spinner"></div>
+    <!-- Таблиця -->
     <table v-else class="logics-table">
       <thead>
         <tr>
@@ -59,8 +56,8 @@ onMounted(async () => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.student">
-          <td class="student-name">{{ student.student }}</td>
+        <tr v-for="student in students" :key="student.name">
+          <td class="student-name">{{ student.name }}</td>
           <td>{{ student.logics }}</td>
         </tr>
       </tbody>
