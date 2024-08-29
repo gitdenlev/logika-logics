@@ -16,6 +16,7 @@ const students = [
     /></router-link>
     <h2>Курс Візуального програмування</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
+    <h2 class="group-time">Субота 15:00</h2>    
     <table class="logics-table">
       <thead>
         <tr>
@@ -117,5 +118,9 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
   background-color: #d9c9ff;
+}
+
+.group-time {
+  text-align: center;
 }
 </style>

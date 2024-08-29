@@ -4,11 +4,21 @@ import axios from "axios";
 
 // Дані про учнів
 const students = [
-  { name: "Войко Мирон", logics: ref(0) },
-  { name: "Заможський Юра", logics: ref(0) },
-  { name: "Старун Денис", logics: ref(0) },
-  { name: "Шевченко Єгор", logics: ref(0) },
-  { name: "Шкода Анастасія", logics: ref(0) },
+  [
+    { name: "Войко Мирон", logics: ref(0) },
+    { name: "Заможський Юра", logics: ref(0) },
+    { name: "Старун Денис", logics: ref(0) },
+    { name: "Шевченко Єгор", logics: ref(0) },
+    { name: "Шкода Анастасія", logics: ref(0) },
+  ],
+  [
+    { name: "Божко Єлизавета", logics: ref(0) },
+    { name: "Головатий Філіп", logics: ref(0) },
+    { name: "Перекопський Олександр", logics: ref(0) },
+    { name: "Сирота Кіра", logics: ref(0) },
+    { name: "Снисарь Ярослав", logics: ref(0) },
+    { name: "Халиулин Давид", logics: ref(0) },
+  ],
 ];
 
 const loading = ref(true); // Стан завантаження
@@ -16,18 +26,30 @@ const loading = ref(true); // Стан завантаження
 // Ваш API ключ та ID таблиці
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
-const range = "'Frontend П'ятниця 15:00'!G3:G7"; // Замініть на потрібний діапазон
 
-const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+const ranges = [
+  "'Frontend Вівторок 18:30'!G3:G8",
+  "'Frontend П'ятниця 15:00'!G3:G7",
+];
+
+const urls = [
+  `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[0]}?key=${apiKey}`,
+  `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[1]}?key=${apiKey}`,
+];
 
 onMounted(async () => {
   try {
-    const response = await axios.get(url);
-    const sheetData = response.data.values;
+    const responses = await axios.all(urls.map((url) => axios.get(url)));
 
-    // Прив'язуємо отримані дані до конкретного учня
-    students.forEach((student, index) => {
-      student.logics.value = sheetData[index][0]; // Перетворюємо значення на число
+    const sheetsData = responses.map((response) => response.data.values);
+
+    // Прив'язуємо отримані дані до учнів у двох групах
+    students[0].forEach((student, index) => {
+      student.logics.value = sheetsData[1][index][0]; // Дані для першої групи
+    });
+
+    students[1].forEach((student, index) => {
+      student.logics.value = sheetsData[0][index][0]; // Дані для другої групи
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -39,15 +61,33 @@ onMounted(async () => {
 
 <template>
   <div class="container">
-    <router-link to="/"
-      ><img src="/arrow.svg" alt="arrow" width="40"
-    /></router-link>
+    <router-link to="/">
+      <img src="/arrow.svg" alt="arrow" width="40" />
+    </router-link>
     <h2>Курс Frontend</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
-    <h2 class="group-time">П'ятниця  17:00</h2>
+    <h2 class="group-time">Вівторок 18:30</h2>
     <!-- Спінер завантаження -->
     <div v-if="loading" class="spinner"></div>
-    <!-- Таблиця -->
+    <table v-else class="logics-table">
+      <!-- Таблиця для першої групи -->
+      <thead>
+        <tr>
+          <th>Учень</th>
+          <th>Кількість логіків</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="student in students[1]" :key="student.name">
+          <td class="student-name">{{ student.name }}</td>
+          <td>{{ student.logics }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Таблиця для другої групи -->
+    <h2 style="margin-top: 10px" class="group-time">П'ятниця 15:00</h2>
+    <div v-if="loading" class="spinner"></div>
     <table v-else class="logics-table">
       <thead>
         <tr>
@@ -56,7 +96,7 @@ onMounted(async () => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.name">
+        <tr v-for="student in students[0]" :key="student.name">
           <td class="student-name">{{ student.name }}</td>
           <td>{{ student.logics }}</td>
         </tr>
@@ -138,15 +178,15 @@ tbody tr:hover {
 
 /* Стиль спінера */
 .spinner {
-  border: 4px solid #f3f3f3; /* Світло-сірий */
-  border-top: 4px solid #7a3db8; /* Фіолетовий */
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #7a3db8;
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
   margin: 0 auto;
   text-align: center;
-  padding-top: 20px; /* Вирівнювання по вертикалі */
+  padding-top: 20px;
 }
 
 /* Анімація спінера */
