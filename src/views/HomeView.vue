@@ -2,13 +2,13 @@
 import FAQ from "@/components/FAQ.vue";
 
 const courses = [
-  { name: "Комп'ютерна грамотність", link: "/courses/compsci" },
-  { name: "Візуальне програмування", link: "/courses/scratch" },
-  { name: "Геймдизайн", link: "/courses/gamedesign" },
-  { name: "Веб-дизайн", link: "/courses/webdesign" },
-  { name: "Графічний дизайн", link: "/courses/graphicdesign" },
-  { name: "Python", link: "/courses/python" },
-  { name: "Frontend", link: "/courses/frontend" },
+  { name: "Комп'ютерна грамотність", link: "/compsci" },
+  { name: "Візуальне програмування", link: "/scratch" },
+  { name: "Геймдизайн", link: "/gamedesign" },
+  { name: "Веб-дизайн", link: "/webdesign" },
+  { name: "Графічний дизайн", link: "/graphicdesign" },
+  { name: "Python", link: "/python" },
+  { name: "Frontend", link: "/frontend" },
 ];
 </script>
 

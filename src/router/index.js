@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFound.vue';
-import Scratch from "@/views/courses/Scratch.vue";
-import Gamedesign from "@/views/courses/Gamedesign.vue";
-import Webdesign from '@/views/courses/Webdesign.vue';
-import Python from '@/views/courses/Python.vue'; 
-import Frontend from "@/views/courses/Frontend.vue";
+import Scratch from "@/views/Scratch.vue";
+import Gamedesign from "@/views/Gamedesign.vue";
+import Webdesign from '@/views/Webdesign.vue';
+import Python from '@/views/Python.vue'; 
+import Frontend from "@/views/Frontend.vue";
 
 
 
@@ -23,27 +23,27 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: "courses/scratch",
+      path: "/scratch",
       name: "Scratch",
       component: Scratch,
     },
     {
-      path: "courses/gamedesign",
+      path: "/gamedesign",
       name: "Gamedesign",
       component: Gamedesign,
     },
     {
-      path: "courses/webdesign",
+      path: "/webdesign",
       name: "Webdesign",
       component: Webdesign,
     },
     {
-      path: "courses/python",
+      path: "/python",
       name: "Python",
       component: Python,
     },
     {
-      path: "courses/frontend",
+      path: "/frontend",
       name: "Frontend",
       component: Frontend,
     },
