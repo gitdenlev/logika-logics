@@ -1,17 +1,15 @@
-import { createRouter, createWebHasHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
 // import NotFound from '../views/NotFound.vue';
 import Scratch from "../views/Scratch.vue";
 import Gamedesign from "../views/Gamedesign.vue";
-import Webdesign from '../views/Webdesign.vue';
-import Python from '../views/Python.vue'; 
+import Webdesign from "../views/Webdesign.vue";
+import Python from "../views/Python.vue";
 import Frontend from "../views/Frontend.vue";
 
-
-
 export default createRouter({
-  history: createWebHasHistory(),
- routes: [
+  history: createWebHistory(),
+  routes: [
     {
       path: "/",
       component: HomeView,
@@ -37,5 +35,4 @@ export default createRouter({
       component: Frontend,
     },
   ],
-})
-
+});
