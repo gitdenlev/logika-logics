@@ -1,5 +1,5 @@
 <script setup>
-import FAQ from "@/components/FAQ.vue";
+import FAQ from "../components/FAQ.vue";
 
 const courses = [
   { name: "Комп'ютерна грамотність", link: "/compsci" },
