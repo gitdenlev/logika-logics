@@ -23,27 +23,27 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: "/courses/scratch",
+      path: "courses/scratch",
       name: "Scratch",
       component: Scratch,
     },
     {
-      path: "/courses/gamedesign",
+      path: "courses/gamedesign",
       name: "Gamedesign",
       component: Gamedesign,
     },
     {
-      path: "/courses/webdesign",
+      path: "courses/webdesign",
       name: "Webdesign",
       component: Webdesign,
     },
     {
-      path: "views/courses/python",
+      path: "courses/python",
       name: "Python",
       component: Python,
     },
     {
-      path: "/courses/frontend",
+      path: "courses/frontend",
       name: "Frontend",
       component: Frontend,
     },
