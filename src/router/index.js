@@ -6,6 +6,7 @@ import Gamedesign from "../views/Gamedesign.vue";
 import Webdesign from "../views/Webdesign.vue";
 import Python from "../views/Python.vue";
 import Frontend from "../views/Frontend.vue";
+import Shop from "../views/Shop.vue";
 
 export default createRouter({
   history: createWebHistory(),
@@ -35,8 +36,12 @@ export default createRouter({
       component: Frontend,
     },
     {
+      path: "/shop",
+      component: Shop,
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: NotFound,
-    }
+    },
   ],
 });

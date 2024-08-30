@@ -55,12 +55,14 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+  cursor: url('/cursor.png'), auto;
+  
 }
 
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: url(/bg.png);
+  background-color: #5e287c;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

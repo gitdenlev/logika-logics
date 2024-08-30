@@ -15,21 +15,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: #f1f1f1;
 }
 
 h1 {
   font-size: 72px;
-  color: #7a3db8;
 }
 
 p {
   font-size: 24px;
-  color: #7a3db8;
 }
 
 a {
   font-size: 18px;
-  color: #7a3db8;
   text-decoration: underline;
+  color: #f1f1f1;
 }
 </style>

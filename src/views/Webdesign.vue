@@ -1,56 +1,18 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-
-const students = ref([
-  { student: "Березань Олександра", logics: 0 },
-  { student: "Дупак Владимир", logics: 0 },
-  { student: "Кірков Євген", logics: 0 },
-  { student: "Оленів Микита", logics: 0 },
-  { student: "Онищенко Володимир", logics: 0 },
-  { student: "Пода Ілля", logics: 0 },
-  { student: "Слабко Роман", logics: 0 },
-]);
-
-const students2 = ref([
-  {student: ""}
-])
-
-const loading = ref(true); // Стан завантаження
-
-const apiKey = "AIzaSyD3PTXMjw62yY_UMdI0LGVGyGGiDh5_wz4";
-const spreadsheetId = "1Q0uE0MHlDQk40cCUaS61xI6zAK4KZdbUIqvSUxh6KxQ";
-const range = "'Вебдизайн Субота 17:00'!G3:G10";
-
-const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-
-onMounted(async () => {
-  try {
-    const response = await axios.get(url);
-    const sheetData = response.data.values;
-
-    // Прив'язуємо отримані дані до конкретного учня
-    students.value.forEach((student, index) => {
-      student.logics = parseInt(sheetData[index][0], 10) || 0; // Перетворюємо значення на число
-    });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  } finally {
-    loading.value = false; // Завершуємо завантаження
-  }
-});
-</script>
-
 <template>
-  <div class="container">
-    <router-link to="/"
-      ><img src="/arrow.svg" alt="arrow" width="40"
-    /></router-link>
-    <h2>Курс Вебдизайну</h2>
-    <h2 class="table-title">Таблиця Логіків</h2>
+  <div class="content">
+    <Sidebar />
+    <div class="header">
+      <div class="course-info">
+        <img src="/webdesign.png" alt="Python" class="course-icon" width="40" />
+        <h1>Курс Веб-дизайн</h1>
+      </div>
+    </div>
+    <!-- Спінер завантаження -->
+    <div class="loading" v-if="loading">
+      <img src="/logo.svg" alt="logo" width="40" />
+    </div>
 
-    <h2 class="group-time">Субота 17:00</h2>
-    <div v-if="loading" class="spinner"></div>
+    <!-- Таблиця -->
     <table v-else class="logics-table">
       <thead>
         <tr>
@@ -59,106 +21,186 @@ onMounted(async () => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.student">
-          <td class="student-name">{{ student.student }}</td>
-          <td>{{ student.logics }}</td>
+        <tr v-for="student in students" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+            <img
+              v-if="student.logics.value >= 300"
+              :src="medalImages[0]"
+              alt="gold medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 200"
+              :src="medalImages[1]"
+              alt="silver medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 100"
+              :src="medalImages[2]"
+              alt="bronze medal"
+              class="medal"
+              width="20"
+            />
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import Sidebar from "../components/Sidebar.vue";
+
+const students = [
+  { name: "Березень Олександра", logics: ref(0) },
+  { name: "Дупак Владимир", logics: ref(0) },
+  { name: "Кірков Євген", logics: ref(0) },
+  { name: "Оленів Микита", logics: ref(0) },
+  { name: "Онищенко Володимир", logics: ref(0) },
+  { name: "Пода Ілля", logics: ref(0) },
+  { name: "Слабко Роман", logics: ref(0) },
+];
+
+const loading = ref(true); // Стан завантаження
+
+// Ваш API ключ та ID таблиці
+const apiKey = import.meta.env.VITE_API_KEY;
+const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
+const range = "'Вебдизайн Субота 17:00'!G3:G9"; // Замініть на потрібний діапазон
+
+const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+
+onMounted(async () => {
+  try {
+    const response = await axios.get(url);
+    const sheetData = response.data.values;
+
+    students.forEach((student, index) => {
+      student.logics.value = Number(sheetData[index][0]) || 0; // Перетворюємо на число і встановлюємо 0, якщо дані відсутні
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+    loading.value = false;
+  }
+});
+
+const medalImages = [
+  "/medal-gold.svg",
+  "/medal-silver.svg",
+  "/medal-bronze.svg",
+];
+</script>
+
 <style scoped>
-.container {
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+.content {
+  display: flex;
+  position: relative;
+  margin-left: 250px; /* Додайте відступ, щоб врахувати ширину сайдбару */
+  width: calc(
+    100% - 250px
+  ); /* Додайте ширину контенту, яка буде залежати від ширини сайдбару */
 }
 
-h1 {
-  color: #7a3db8;
-  text-align: center;
-  margin-bottom: 20px;
+.header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: #f1f1f1;
 }
 
-p {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
+.course-info h1 {
+  margin: 0;
+  font-size: 2rem;
 }
 
-h2 {
-  color: #5e287c;
-}
-
-.course-link:hover {
-  background-color: #5e287c;
+.course-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
 }
 
 .logics-table {
+  margin-top: 70px;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  border: none;
 }
 
 th,
 td {
+  padding: 15px;
+  font-weight: normal;
   border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
   font-weight: bold;
-}
-
-.student-name {
-  text-align: left;
 }
 
 th {
-  background-color: #7a3db8;
+  background-color: #3498db;
   color: #ffffff;
-  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
 }
 
 td {
-  background-color: #f8f5ff;
+  background-color: #ffffff;
   color: #333;
-  width: 50%;
+  font-size: 1rem;
+}
+
+td.logics {
+  text-align: center;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #ede7ff;
+  background-color: #f9f9f9; /* Легке чергування рядків */
 }
 
 tbody tr:hover {
-  background-color: #d9c9ff;
-}
-.group-time {
-  text-align: center;
+  background-color: #e0e0e0; /* Тло при наведенні */
 }
 
-/* Стиль спінера */
-.spinner {
-  border: 4px solid #f3f3f3; /* Світло-сірий */
-  border-top: 4px solid #7a3db8; /* Фіолетовий */
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 20px; /* Вирівнювання по вертикалі */
+.loading {
+  margin: 20px auto;
+  animation: spinAndFlip 1s linear infinite;
+  position: relative; /* Важливо для коректного розташування абсолютного елемента */
+  width: 100%; /* Або фіксована ширина, якщо потрібно */
+  height: 100%; /* Або фіксована висота, якщо потрібно */
+  display: flex; /* Використовуємо flexbox для центрування */
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center;
 }
 
-/* Анімація спінера */
-@keyframes spin {
+@keyframes spinAndFlip {
   0% {
-    transform: rotate(0deg);
+    transform: scaleX(1);
+  }
+  25% {
+    transform: scaleX(1.1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  75% {
+    transform: scaleX(1.1);
   }
   100% {
-    transform: rotate(360deg);
+    transform: scaleX(1);
   }
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 </style>
