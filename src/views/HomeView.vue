@@ -4,80 +4,90 @@ import Sidebar from "../components/Sidebar.vue";
 
 const isOpen = ref(false);
 const topStudents = [
-  { name: "Білич Андрій", logics: 350 },
-  { name: "Лозова Олександра", logics: 300 },
-  { name: "Шматов Богдан", logics: 250 },
-]; // Замініть це на динамічні дані з API
+  { name: "Дзюндзя Денис", logics: 335, trophei: "/gold-trophei.svg" },
+  { name: "Михайлов Іван", logics: 330, trophei: "/silver-trophei.svg" },
+  { name: "Мельчевський Єгор", logics: 319, trophei: "/bronze-trophei.svg" },
+];
 
-function toggleWindow() {
-  isOpen.value = !isOpen.value;
-}
-
-function toggleWindowRating() {
-  isOpen.value = !isOpen.value;
-}
+const shopItems = [
+  { item: "Браслет - 15 логіків", img: "/shop/bracelet.png" },
+  { item: "Стікери - 25 логіків", img: "/shop/stickers.png" },
+  { item: "Ручка - 25 логіків", img: "/shop/pen.png" },
+  { item: "Олівець - 25 логіків", img: "/shop/pencil.png" },
+  { item: "Значок - 30 логіків", img: "/shop/pin.png" },
+  { item: "Попсокет - 50 логіків", img: "/shop/popsocket.png" },
+  { item: "Шкарпетки - 100 логіків", img: "/shop/sock.png" },
+  { item: "Пляшка - 150 логіків", img: "/shop/bottle.png" },
+  { item: "Килимок для мишки - 180 логіків", img: "/shop/carpet.png" },
+  { item: "Бананка - 220 логіків", img: "/shop/fanny-pack.png" },
+  { item: "Футболка - 250 логіків", img: "/shop/t-shirt.png" },
+  { item: "Парасолька - 250 логіків", img: "/shop/umbrella.png" },
+  { item: "Навушники - 300 логіків", img: "/shop/headphones.png" },
+  { item: "Донат на ЗСУ - 1 логік = 1,5 грн", img: "/shop/ukraine.png" },
+  {
+    item: "Знижка 30% на перший місяць навчання на новому курсі - 300 логіків",
+    img: "/shop/sale.png",
+  },
+];
 </script>
 
 <template>
-  <div class="container">
-    <Sidebar />
-    <h1>Вітаємо на сайті Logika Logics</h1>
-    <div class="icons">
-      <div class="stories" @click="toggleWindow">
-        <img src="/logo.svg" alt="logo" width="20" />
+  <Sidebar />
+  <div class="shop-popup">
+    <div class="shop-popup-content">
+      <div class="shop">
+        <img src="/shop.png" alt="logo" width="25" />
       </div>
+      <h2>Магазин</h2>
+    </div>
+    <ul class="shop-popup-list">
+      <li v-for="item in shopItems" :key="item.item">
+        <img :src="item.img" :alt="item.item" width="40" />
+        <h2>{{ item.item }}</h2>
+      </li>
+    </ul>
+  </div>
 
-      <div class="top" @click="toggleWindowRating">
+  <div class="top-popup">
+    <div class="top-popup-content">
+      <div class="top">
         <img src="/top.png" alt="top" width="30" />
-        <div v-if="isOpen" class="top-popup">
-          <h3>Топ-3 учні</h3>
-          <ul>
-            <li v-for="student in topStudents" :key="student.name">
-              <span>{{ student.name }}</span>
-              <span>{{ student.logics }} логіків</span>
-            </li>
-          </ul>
-        </div>
       </div>
-      <div class="top" @click="toggleWindowRating">
-        <img src="/gamepad.png" alt="top" width="30" />
-        <div v-if="isOpen" class="top-popup">
-          <h3>Топ-3 учні</h3>
-          <ul>
-            <li v-for="student in topStudents" :key="student.name">
-              <span>{{ student.name }}</span>
-              <span>{{ student.logics }} логіків</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <h2>Рейтинг</h2>
     </div>
 
-    <transition name="fade">
-      <div v-if="isOpen" class="popup-window">
-        <div>
-          <img src="/test.jpg" alt="logo" width="200" />
+    <ul>
+      <li v-for="student in topStudents" :key="student.name">
+        <div class="statistics">
+          <div class="statisctics-text">
+            <img :src="student.trophei" alt="trophei" width="40" />
+            <h2>{{ student.name }}</h2>
+          </div>
+          <p>{{ student.logics }}</p>
         </div>
-      </div>
-    </transition>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.container {
+.statisctics-text {
   display: flex;
-  margin: 0 auto;
-  padding: 20px;
-  width: 70%;
-  position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
-.icons {
+.statistics {
   display: flex;
-  gap: 20px;
-  position: absolute;
-  top: 10px;
-  left: 10%;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.statistics p {
+  margin-left: 30px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .stories {
@@ -96,7 +106,8 @@ function toggleWindowRating() {
   margin-bottom: 10px;
 }
 
-.top {
+.top,
+.shop {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,61 +121,70 @@ function toggleWindowRating() {
     rgba(131, 58, 180, 1) 100%
   );
   position: relative;
-  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додана тінь */
 }
 
-.top-popup {
+.top-popup,
+.shop-popup {
   position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
+  top: 10px;
+  right: 0;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  width: 200px;
-  z-index: 10;
+  box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2); /* Додана тінь */
+  border: none; /* Прибрані рамки */
+  background-color: rgba(94, 40, 124, 0.95); /* Темний напівпрозорий фон */
+  color: #f1f1f1;
+  border-radius: 5px;
 }
 
-.top-popup h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #333;
+.shop-popup {
+  margin-left: 100px;
 }
 
-.top-popup ul {
+.top-popup ul,
+.shop-popup-list {
   list-style: none;
   padding: 0;
-  margin: 0;
-}
-
-.top-popup li {
+  margin: 10px 0 0 0;
   display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  border-bottom: 1px solid #ddd;
+  flex-direction: column;
+  gap: 10px;
+  color: #f1f1f1;
 }
 
-.top-popup li:last-child {
-  border-bottom: none;
+.shop-popup {
+  left: 15%; /* Вирівнювання магазину */
+  width: 50%;
 }
 
-.top-popup span {
-  font-size: 0.9rem;
-  color: #555;
+.shop-popup-content,
+.top-popup-content {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.popup-window {
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 16px 32px rgba(122, 61, 184, 0.6);
+.top-popup li,
+.shop-popup li {
+  display: flex;
+  align-items: center;
+  padding: 10px; /* Збільшений padding для кращого вигляду */
+  border-radius: 5px;
+}
+
+.shop-popup li {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Легка прозорість для відокремлення елементів */
+}
+
+.top-popup h2,
+.shop-popup h2 {
+  margin-left: 10px;
+  color: #ffffff; /* Білий текст */
 }
 
 .fade-enter-active,
@@ -177,34 +197,38 @@ function toggleWindowRating() {
   opacity: 0;
 }
 
-
-.stories::after:hover {
-  content: "Новини Logika";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(253, 29, 29, 1) 0%,
-    rgba(252, 176, 69, 1) 50%,
-    rgba(131, 58, 180, 1) 100%
-  );
-  z-index: -1;
-  border-radius: 50%;
+.top-popup {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 400px;
 }
 
+/* Адаптивна верстка для планшетів */
+@media (max-width: 1280px) {
+  .shop-popup {
+    left: 20%;
+    width: 70%;
+  }
 
-@media screen and (min-width: 360px) {
-  .container {
-    width: 30%;
-  } 
+  .top-popup {
+    display: none;
+    opacity: 0;
+    overflow: hidden;
+  }
 }
 
-@media screen and (min-width: 768px) {
-  .container {
-    width: 35%;
+@media (max-width: 975px) {
+  .shop-popup {
+    left: 25%;
+    width: 60%;
+  }
+}
+
+@media (max-width: 758px) {
+  .shop-popup {
+    left: 30%;
+    width: 50%;
   }
 }
 </style>

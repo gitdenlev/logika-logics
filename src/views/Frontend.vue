@@ -14,43 +14,42 @@
 
     <!-- Таблиця -->
     <table v-else class="logics-table">
-  <thead>
-    <tr>
-      <th>Учень</th>
-      <th>Кількість логіків</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="student in students.flat()" :key="student.name">
-      <td class="student-name">
-        {{ student.name }}
-        <img
-          v-if="student.logics.value >= 300"
-          :src="medalImages[0]"
-          alt="gold medal"
-          class="medal"
-          width="20"
-        />
-        <img
-          v-else-if="student.logics.value >= 200"
-          :src="medalImages[1]"
-          alt="silver medal"
-          class="medal"
-          width="20"
-        />
-        <img
-          v-else-if="student.logics.value >= 100"
-          :src="medalImages[2]"
-          alt="bronze medal"
-          class="medal"
-          width="20"
-        />
-      </td>
-      <td class="logics">{{ student.logics.value }}</td>
-    </tr>
-  </tbody>
-</table>
-
+      <thead>
+        <tr>
+          <th>Учень</th>
+          <th>Кількість логіків</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="student in students.flat()" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+            <img
+              v-if="student.logics.value >= 300"
+              :src="medalImages[0]"
+              alt="gold medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 200"
+              :src="medalImages[1]"
+              alt="silver medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 100"
+              :src="medalImages[2]"
+              alt="bronze medal"
+              class="medal"
+              width="20"
+            />
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -118,7 +117,6 @@ onMounted(async () => {
     loading.value = false; // Завершуємо завантаження
   }
 });
-
 
 const medalImages = [
   "/gold-medal.png",

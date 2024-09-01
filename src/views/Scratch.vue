@@ -1,126 +1,207 @@
-<script setup>
-const students = [
-  { student: "Дзюндзя Денис", logics: 335 },
-  { student: "Кулеба Данил", logics: 315 },
-  { student: "Мельчевський Єгор", logics: 319 },
-  { student: "Михайлов Іван", logics: 330 },
-  { student: "Панасенко Олеся", logics: 310 },
-  { student: "Ткач Кіра", logics: 313 },
-];
-</script>
-
 <template>
-  <div class="container">
-    <router-link to="/"
-      ><img src="/arrow.svg" alt="arrow" width="40"
-    /></router-link>
-    <h2>Курс Візуального програмування</h2>
-    <h2 class="table-title">Таблиця Логіків</h2>
-    <h2 class="group-time">Субота 15:00</h2>    
-    <table class="logics-table">
+  <div class="content">
+    <Sidebar />
+    <div class="header">
+      <div class="course-info">
+        <img src="/scratch.svg" alt="Scratch" class="course-icon" width="40" />
+        <h1>Курс Візуальне програмування</h1>
+      </div>
+    </div>
+
+    <!-- Спінер завантаження -->
+    <div class="loading" v-if="loading">
+      <img src="/logo.svg" alt="logo" width="40" />
+    </div>
+
+    <!-- Таблиця -->
+    <table v-else class="logics-table">
       <thead>
+        <div class="date-container">
+          <div class="date">
+            <img src="/date.png" alt="date" width="30" />
+            <h2>Субота 15:00</h2>
+          </div>
+        </div>
+
         <tr>
           <th>Учень</th>
           <th>Кількість логіків</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.lastName">
-          <td class="student-name">{{ student.student }}</td>
-          <td>{{ student.logics }}</td>
+        <tr v-for="student in students" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+            <img
+              v-if="student.logics.value >= 300"
+              :src="medalImages[0]"
+              alt="gold medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 200"
+              :src="medalImages[1]"
+              alt="silver medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 100"
+              :src="medalImages[2]"
+              alt="bronze medal"
+              class="medal"
+              width="20"
+            />
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
+<script setup>
+import Sidebar from "../components/Sidebar.vue";
+
+const students = [
+  { name: "Дзюндзя Денис", logics: 300 },
+  { name: "Глушко Артем", logics: 300 },
+  { name: "Головенко Василь", logics: 300 },
+  { name: "Кисельов Артем", logics: 300 },
+  { name: "Леміш Аліна", logics: 300 },
+  { name: "Лозова Олександра", logics: 300 },
+  { name: "Хоменко Матвій", logics: 300 },
+  { name: "Шматов Богдан", logics: 300 },
+];
+
+// const loading = ref(true); // Стан завантаження
+
+const medalImages = [
+  "/medal-gold.svg",
+  "/medal-silver.svg",
+  "/medal-bronze.svg",
+];
+</script>
+
 <style scoped>
-.container {
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-h1 {
-  color: #7a3db8;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-p {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
-}
-
-h2 {
-  color: #5e287c;
-}
-
-.course-list {
-  list-style: none;
-  padding: 0;
+.content {
   display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
+  position: relative;
+  margin-left: 250px; /* Додайте відступ, щоб врахувати ширину сайдбару */
+  width: calc(
+    100% - 250px
+  ); /* Додайте ширину контенту, яка буде залежати від ширини сайдбару */
 }
 
-.course-link {
-  text-decoration: none;
-  color: #ffffff;
-  background-color: #7a3db8;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+.header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: #f1f1f1;
 }
 
-.course-link:hover {
-  background-color: #5e287c;
+.course-info h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.course-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
 }
 
 .logics-table {
+  margin-top: 70px;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  border: none;
 }
 
 th,
 td {
+  padding: 15px;
+  font-weight: normal;
   border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
   font-weight: bold;
-}
-
-.student-name {
-  text-align: left;
 }
 
 th {
-  background-color: #7a3db8;
+  background-color: #3498db;
   color: #ffffff;
-  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
 }
 
 td {
-  background-color: #f8f5ff;
+  background-color: #ffffff;
   color: #333;
+  font-size: 1rem;
+}
+
+td.logics {
+  text-align: center;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #ede7ff;
+  background-color: #f9f9f9; /* Легке чергування рядків */
 }
 
 tbody tr:hover {
-  background-color: #d9c9ff;
+  background-color: #e0e0e0; /* Тло при наведенні */
 }
 
-.group-time {
-  text-align: center;
+.loading {
+  margin: 20px auto;
+  animation: spinAndFlip 1s linear infinite;
+  position: relative; /* Важливо для коректного розташування абсолютного елемента */
+  width: 100%; /* Або фіксована ширина, якщо потрібно */
+  height: 100%; /* Або фіксована висота, якщо потрібно */
+  display: flex; /* Використовуємо flexbox для центрування */
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center;
 }
+
+@keyframes spinAndFlip {
+  0% {
+    transform: scaleX(1);
+  }
+  25% {
+    transform: scaleX(1.1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  75% {
+    transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.date-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px; /* Можна видалити, якщо не потрібен */
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f1f1f1;
+}
+
+
 </style>

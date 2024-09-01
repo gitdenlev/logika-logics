@@ -154,7 +154,7 @@ td {
 }
 
 th {
-  background-color: #3498db;
+  background-color: #037ffc;
   color: #ffffff;
   font-size: 1.1rem;
   border: none;
@@ -226,6 +226,4 @@ tbody tr:hover {
   gap: 10px;
   color: #f1f1f1;
 }
-
-
 </style>

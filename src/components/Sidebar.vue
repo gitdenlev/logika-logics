@@ -10,18 +10,19 @@
       <li v-for="course in courses" :key="course.name">
         <div class="sidebar-item">
           <img :src="course.icon" alt="" class="course-icon" />
-          <router-link :to="course.link" class="sidebar-link">
+          <router-link
+            :class="course.link === $route.path ? 'active' : ''"
+            :to="course.link"
+            class="sidebar-link"
+          >
             {{ course.name }}
           </router-link>
         </div>
       </li>
-      <li class="shop-item">
-        <router-link to="/shop" class="sidebar-link shop-link">
-          <img src="/shop.png" alt="Shop" class="shop-icon" />
-          Магазин
-        </router-link>
-      </li>
     </ul>
+    <a class="contact-button" href="https://t.me/denyalove" target="_blank"
+      >Написати викладачу</a
+    >
   </div>
 </template>
 
@@ -54,20 +55,13 @@ const courses = [
   width: 300px;
   background-color: #5e287c;
   padding: 20px;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додана тінь */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-right: 2px dashed #ffffff;
 }
 
 .logo-container {
-  margin-bottom: 1em;
-}
-
-h2 {
-  color: #ffffff;
-  font-size: 1.5em;
   margin-bottom: 1em;
 }
 
@@ -104,52 +98,26 @@ h2 {
   transform: translateX(5px);
 }
 
-.shop-item {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  padding-left: 10px; /* Make space between sidebar items and shop icon */
+.sidebar-link.active {
+  background-color: #7a3db8;
 }
 
-.shop-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
+.contact-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #027ffc; /* Колір кнопки */
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.shop-link {
-  display: flex;
-  align-items: center;
+.contact-button:hover {
+  background-color: #027ffc7b; /* Темніший відтінок при наведенні */
 }
 
-.shop-link:hover {
-  background-color: #9e3fd7;
-  transform: translateX(5px);
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 10px;
-    position: relative;
-  }
-
-  .sidebar-list {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 0;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .sidebar-item {
-    margin-bottom: 0;
-  }
-
-  .shop-item {
-    margin-left: auto;
-  }
-}
 </style>
