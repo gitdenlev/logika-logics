@@ -111,11 +111,16 @@ const medalImages = [
 <style scoped>
 .content {
   display: flex;
-  position: relative;
   margin-left: 250px; /* Додайте відступ, щоб врахувати ширину сайдбару */
-  width: calc(
-    100% - 250px
-  ); /* Додайте ширину контенту, яка буде залежати від ширини сайдбару */
+  max-width: 90%;
+}
+
+
+@media screen and (max-width: 768px) {
+  .content { 
+    max-width: 50%;
+  }
+  
 }
 
 .header {
@@ -143,6 +148,14 @@ const medalImages = [
   border-spacing: 0;
   border-radius: 10px;
   border: none;
+}
+
+
+@media screen and (max-width: 768px) {
+  .logics-table {
+    width: 100%;
+  }
+  
 }
 
 th,

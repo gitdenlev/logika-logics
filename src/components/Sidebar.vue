@@ -53,7 +53,7 @@ const courses = [
   top: 0;
   height: 100%;
   width: 300px;
-  background-color: #5e287c;
+  background-color: #92d0ff;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додана тінь */
   display: flex;
@@ -85,21 +85,23 @@ const courses = [
 }
 
 .sidebar-link {
-  color: #ffffff;
+  color: black;
   text-decoration: none;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 30px;
   transition: background-color 0.3s, transform 0.2s;
   flex-grow: 1;
 }
 
 .sidebar-link:hover {
-  background-color: #7a3db8;
+  background-color: #3599db;
   transform: translateX(5px);
+  color: white;
 }
 
 .sidebar-link.active {
-  background-color: #7a3db8;
+  background-color: #3599db;
+  color: white;
 }
 
 .contact-button {
@@ -120,4 +122,10 @@ const courses = [
   background-color: #027ffc7b; /* Темніший відтінок при наведенні */
 }
 
+
+@media screen and (min-width: 360px) and (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
 </style>

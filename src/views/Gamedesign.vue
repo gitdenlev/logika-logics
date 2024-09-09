@@ -19,8 +19,7 @@ const students2 = [
 <template>
   <div class="container">
     <router-link to="/"
-      ><img src="/arrow.svg" alt="arrow" width="40"
-    /></router-link>
+      >Назад</router-link>
     <h2>Курс Геймдизайну</h2>
     <h2 class="table-title">Таблиця Логіків</h2>
     <h2 class="group-time">Субота 10:30</h2>

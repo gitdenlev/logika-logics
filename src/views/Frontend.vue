@@ -1,62 +1,14 @@
-<template>
-  <div class="content">
-    <Sidebar />
-    <div class="header">
-      <div class="course-info">
-        <img src="/frontend.png" alt="Python" class="course-icon" width="40" />
-        <h1>Курс Frontend</h1>
-      </div>
-    </div>
-    <!-- Спінер завантаження -->
-    <div class="loading" v-if="loading">
-      <img src="/logo.svg" alt="logo" width="40" />
-    </div>
-
-    <!-- Таблиця -->
-    <table v-else class="logics-table">
-      <thead>
-        <tr>
-          <th>Учень</th>
-          <th>Кількість логіків</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students.flat()" :key="student.name">
-          <td class="student-name">
-            {{ student.name }}
-            <img
-              v-if="student.logics.value >= 300"
-              :src="medalImages[0]"
-              alt="gold medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 200"
-              :src="medalImages[1]"
-              alt="silver medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 100"
-              :src="medalImages[2]"
-              alt="bronze medal"
-              class="medal"
-              width="20"
-            />
-          </td>
-          <td class="logics">{{ student.logics.value }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
+import Nav from "../components/Nav.vue";
+
+const shopPopup = ref(false);
+
+const coursesPopup = ref(false);
+
+const ratingPopup = ref(false);
 
 // Дані про учнів
 const students = [
@@ -119,72 +71,126 @@ onMounted(async () => {
 });
 
 const medalImages = [
-  "/gold-medal.png",
-  "/silver-medal.png",
-  "/bronze-medal.png",
+  "/medal-gold.svg",
+  "/medal-silver.svg",
+  "/medal-bronze.svg",
 ];
 </script>
+
+<template>
+  <div class="content">
+    <Sidebar />
+    <div class="header">
+      <div class="course-info">
+        <img
+          src="/frontend.png"
+          alt="frontend"
+          class="course-icon"
+          width="60"
+        />
+      </div>
+      <h1>Курс Frontend</h1>
+    </div>
+
+    <!-- Спінер завантаження -->
+    <div class="loading" v-if="loading">
+      <img src="/logo.svg" alt="logo" width="40" />
+    </div>
+
+    <!-- Таблиця -->
+    <table v-else class="logics-table">
+      <thead>
+        <tr>
+          <th>Учень</th>
+          <th>Кількість логіків</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="student in students.flat()" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+            <img
+              v-if="student.logics.value >= 300"
+              :src="medalImages[0]"
+              alt="gold medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 200"
+              :src="medalImages[1]"
+              alt="silver medal"
+              class="medal"
+              width="20"
+            />
+            <img
+              v-else-if="student.logics.value >= 100"
+              :src="medalImages[2]"
+              alt="bronze medal"
+              class="medal"
+              width="20"
+            />
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <Nav /> -->
+  </div>
+</template>
 
 <style scoped>
 .content {
   display: flex;
-  position: relative;
-  margin-left: 250px; /* Додайте відступ, щоб врахувати ширину сайдбару */
-  width: calc(
-    100% - 250px
-  ); /* Додайте ширину контенту, яка буде залежати від ширини сайдбару */
+  flex-direction: column;
+  margin-left: 250px; /* Відступ для сайдбару */
 }
 
 .header {
-  position: absolute;
   display: flex;
   align-items: center;
-  color: #f1f1f1;
+  gap: 30px;
+  color: black;
+}
+
+.course-info {
+  display: flex;
+  flex-direction: column; /* Вертикальне вирівнювання */
+  align-items: center; /* Центруємо по горизонталі */
 }
 
 .course-info h1 {
   margin: 0;
-  font-size: 2rem;
-}
-
-.course-info p {
-  margin: 0;
-  font-size: 1rem;
-  color: #333;
+  padding-top: 20px;
+  color: black;
 }
 
 .logics-table {
-  margin-top: 70px;
+  margin-top: 20px; /* Відступ від хедера */
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 10px;
-  border: none;
+  border-spacing: 5px;
+  border-radius: 30px;
 }
 
 th,
 td {
   padding: 15px;
-  font-weight: normal;
-  border: 1px solid #ddd;
   font-weight: bold;
+  border-radius: 30px;
 }
 
 th {
   background-color: #3498db;
   color: #ffffff;
   font-size: 1.1rem;
-  border: none;
 }
 
 td {
   background-color: #ffffff;
   color: #333;
   font-size: 1rem;
-}
-
-td.logics {
-  text-align: center;
+  border-radius: 30px;
 }
 
 tbody tr:nth-child(even) {
@@ -195,15 +201,18 @@ tbody tr:hover {
   background-color: #e0e0e0; /* Тло при наведенні */
 }
 
+.logics {
+  text-align: center;
+}
+
 .loading {
   margin: 20px auto;
   animation: spinAndFlip 1s linear infinite;
-  position: relative; /* Важливо для коректного розташування абсолютного елемента */
-  width: 100%; /* Або фіксована ширина, якщо потрібно */
-  height: 100%; /* Або фіксована висота, якщо потрібно */
-  display: flex; /* Використовуємо flexbox для центрування */
+  display: flex;
   justify-content: center; /* Горизонтальне центрування */
-  align-items: center;
+  align-items: center; /* Вертикальне центрування */
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes spinAndFlip {
@@ -224,9 +233,32 @@ tbody tr:hover {
   }
 }
 
-.course-info {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+@media screen and (max-width: 768px) {
+  .content {
+    margin-left: 0px;
+    width: 100%;
+  }
 }
+
+
+@media screen and (min-width: 769px) {
+  .content {
+    margin-left: 275px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content {
+    margin-left: 300px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .content {
+    margin-left: 270px;
+  }
+}
+
+
+
 </style>

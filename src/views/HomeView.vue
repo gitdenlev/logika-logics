@@ -23,7 +23,11 @@ const shopItems = [
   { item: "Футболка - 250 логіків", img: "/shop/t-shirt.png" },
   { item: "Парасолька - 250 логіків", img: "/shop/umbrella.png" },
   { item: "Навушники - 300 логіків", img: "/shop/headphones.png" },
-  { item: "Донат на ЗСУ - 1 логік = 1,5 грн", img: "/shop/ukraine.png" },
+  {
+    item: "Донат на ЗСУ - 1 логік = 1,5 грн",
+    img: "/shop/ukraine.png",
+    spec: "/flame.png",
+  },
   {
     item: "Знижка 30% на перший місяць навчання на новому курсі - 300 логіків",
     img: "/shop/sale.png",
@@ -33,44 +37,45 @@ const shopItems = [
 
 <template>
   <Sidebar />
-  <div class="shop-popup">
-    <div class="shop-popup-content">
-      <div class="shop">
-        <img src="/shop.png" alt="logo" width="25" />
-      </div>
-      <h2>Магазин</h2>
-    </div>
-    <ul class="shop-popup-list">
-      <li v-for="item in shopItems" :key="item.item">
-        <img :src="item.img" :alt="item.item" width="40" />
-        <h2>{{ item.item }}</h2>
-      </li>
-    </ul>
-  </div>
-
-  <div class="top-popup">
-    <div class="top-popup-content">
-      <div class="top">
-        <img src="/top.png" alt="top" width="30" />
-      </div>
-      <h2>Рейтинг</h2>
-    </div>
-
-    <ul>
-      <li v-for="student in topStudents" :key="student.name">
-        <div class="statistics">
-          <div class="statisctics-text">
-            <img :src="student.trophei" alt="trophei" width="40" />
-            <h2>{{ student.name }}</h2>
-          </div>
-          <p>{{ student.logics }}</p>
-        </div>
-      </li>
-    </ul>
-  </div>
 </template>
 
 <style scoped>
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #5e287c;
+  border-radius: 0 0 10px 10px;
+}
+
+.navigation-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; /* Зменшений gap для кращої адаптації на менших екранах */
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px; /* Розмір шрифту */
+  font-weight: 600; /* Напівжирний текст */
+}
+
+/* Адаптивна верстка для мобільних пристроїв */
+@media (max-width: 768px) {
+  .navigation {
+    padding: 15px 5px;
+  }
+
+  .navigation-list {
+    gap: 20px;
+    font-size: 16px;
+  }
+}
+
 .statisctics-text {
   display: flex;
   align-items: center;
@@ -187,34 +192,26 @@ const shopItems = [
   color: #ffffff; /* Білий текст */
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.shop-popup h2 {
+  margin-right: 10px;
 }
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 .top-popup {
-  position: fixed;
+  /* position: fixed; */
   top: 10px;
   right: 10px;
-  width: 400px;
 }
 
 /* Адаптивна верстка для планшетів */
 @media (max-width: 1280px) {
   .shop-popup {
     left: 20%;
-    width: 70%;
+    width: 60%;
   }
 
   .top-popup {
-    display: none;
-    opacity: 0;
-    overflow: hidden;
+    /* position: absolute;
+    left: 10px;
+    right: 10px; */
   }
 }
 
