@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "axios": "^1.7.4",
     "googleapis": "^142.0.0",
     "vue": "^3.4.29",
@@ -20,4 +21,3 @@
     "vite": "^5.3.1"
   }
 }
-

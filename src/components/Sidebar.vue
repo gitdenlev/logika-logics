@@ -1,11 +1,5 @@
 <template>
   <div class="sidebar">
-    <router-link to="/">
-      <div class="logo-container">
-        <img src="/logo.svg" alt="" width="40" />
-      </div>
-    </router-link>
-
     <ul class="sidebar-list">
       <li v-for="course in courses" :key="course.name">
         <div class="sidebar-item">
@@ -88,9 +82,10 @@ const courses = [
   color: black;
   text-decoration: none;
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 25px;
   transition: background-color 0.3s, transform 0.2s;
-  flex-grow: 1;
+  flex-grow: 0.1;
+  text-align: center;
 }
 
 .sidebar-link:hover {
@@ -105,11 +100,14 @@ const courses = [
 }
 
 .contact-button {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #027ffc; /* Колір кнопки */
-  border-radius: 5px;
+  border-radius: 30px;
   text-align: center;
   transition: background-color 0.3s ease;
   color: white;
@@ -118,10 +116,32 @@ const courses = [
   font-weight: bold;
 }
 
-.contact-button:hover {
-  background-color: #027ffc7b; /* Темніший відтінок при наведенні */
+.contact-button img {
+  transition: all 0.3s linear;
 }
 
+@keyframes fly {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(5px) translateY(-5px) rotate(15deg);
+  }
+  50% {
+    transform: translateX(10px) translateY(5px) rotate(-15deg);
+  }
+  75% {
+    transform: translateX(5px) translateY(-5px) rotate(15deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+.contact-button img:hover {
+  animation: fly 1s infinite; /* Добавлено infinite для бесконечной анимации */
+  transform: scale(1.1);
+}
 
 @media screen and (min-width: 360px) and (max-width: 768px) {
   .sidebar {

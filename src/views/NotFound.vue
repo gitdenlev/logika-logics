@@ -2,7 +2,7 @@
 
 <template>
   <div class="not-found">
-    <h1>404</h1>
+    <img src="/404.png" alt="not found" width="200">
     <p>Упс! Схоже такої сторінки не існує</p>
     <router-link to="/">Повернутись на головну</router-link>
   </div>
@@ -15,7 +15,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #f1f1f1;
+  color: black;
 }
 
 h1 {
@@ -29,6 +29,5 @@ p {
 a {
   font-size: 18px;
   text-decoration: underline;
-  color: #f1f1f1;
 }
 </style>

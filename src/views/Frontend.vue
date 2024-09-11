@@ -2,13 +2,6 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
-import Nav from "../components/Nav.vue";
-
-const shopPopup = ref(false);
-
-const coursesPopup = ref(false);
-
-const ratingPopup = ref(false);
 
 // Дані про учнів
 const students = [
@@ -70,11 +63,11 @@ onMounted(async () => {
   }
 });
 
-const medalImages = [
-  "/medal-gold.svg",
-  "/medal-silver.svg",
-  "/medal-bronze.svg",
-];
+const burgerMenu = ref(false);
+
+function toggleBurgerMenu() {
+  burgerMenu.value = !burgerMenu.value;
+}
 </script>
 
 <template>
@@ -109,33 +102,20 @@ const medalImages = [
         <tr v-for="student in students.flat()" :key="student.name">
           <td class="student-name">
             {{ student.name }}
-            <img
-              v-if="student.logics.value >= 300"
-              :src="medalImages[0]"
-              alt="gold medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 200"
-              :src="medalImages[1]"
-              alt="silver medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 100"
-              :src="medalImages[2]"
-              alt="bronze medal"
-              class="medal"
-              width="20"
-            />
           </td>
           <td class="logics">{{ student.logics.value }}</td>
         </tr>
       </tbody>
     </table>
-    <!-- <Nav /> -->
+  </div>
+  <div @click="toggleBurgerMenu" class="burger">
+    <div class="burger-item">
+      <ul>
+        <li>Комп'ютерна грамотність</li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -169,40 +149,45 @@ const medalImages = [
   margin-top: 20px; /* Відступ від хедера */
   width: 100%;
   border-collapse: separate;
-  border-spacing: 5px;
-  border-radius: 30px;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden; /* Щоб уникнути зрізів */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь для виділення */
 }
 
 th,
 td {
   padding: 15px;
   font-weight: bold;
-  border-radius: 30px;
 }
 
 th {
-  background-color: #3498db;
+  background: linear-gradient(145deg, #3498db, #2980b9);
   color: #ffffff;
   font-size: 1.1rem;
+  border-bottom: 2px solid #2980b9;
 }
 
 td {
   background-color: #ffffff;
   color: #333;
   font-size: 1rem;
-  border-radius: 30px;
+  border-bottom: 1px solid #ddd; /* Легка межа між рядками */
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* Легке чергування рядків */
+  background-color: #f5f5f5; /* Легке чергування рядків */
 }
 
 tbody tr:hover {
-  background-color: #e0e0e0; /* Тло при наведенні */
+  background-color: #e0f7fa; /* Світло-блакитний фон при наведенні */
 }
 
 .logics {
   text-align: center;
+  padding: 15px;
+  /* border-radius: 15px; */
+  background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Легкий градієнт */
 }
 
 .loading {
@@ -213,6 +198,37 @@ tbody tr:hover {
   align-items: center; /* Вертикальне центрування */
   width: 100%;
   height: 100%;
+}
+
+.burger {
+  overflow: hidden;
+  position: absolute;
+  top: 5%;
+  right: 5%; /* Зміщення праворуч */
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  background: #3498db;
+  color: white;
+  border-radius: 30px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+  transition: background 0.3s ease; /* Плавний перехід кольору */
+}
+
+.burger:hover {
+  background: #2980b9; /* Зміна кольору при наведенні */
+}
+
+.burger-item {
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  padding: 10px;
+  gap: 10px;
+  font-size: 18px;
 }
 
 @keyframes spinAndFlip {
@@ -233,17 +249,38 @@ tbody tr:hover {
   }
 }
 
+
+@media screen and (min-width: 360px) {
+  .header {
+    font-size: 14px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .content {
     margin-left: 0px;
     width: 100%;
   }
-}
+  .logics {
+    width: 10%;
+  }
 
+  th {
+    padding: 20px;
+    /* border-radius: 20px; */
+  }
+
+  .logics {
+    padding: 30px;
+  }
+  .burger {
+    display: flex;
+  }
+}
 
 @media screen and (min-width: 769px) {
   .content {
-    margin-left: 275px;
+    margin-left: 300px;
   }
 }
 
@@ -252,13 +289,4 @@ tbody tr:hover {
     margin-left: 300px;
   }
 }
-
-@media screen and (min-width: 1280px) {
-  .content {
-    margin-left: 270px;
-  }
-}
-
-
-
 </style>

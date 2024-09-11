@@ -2,13 +2,6 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
-import Nav from "../components/Nav.vue";
-
-const shopPopup = ref(false);
-
-const coursesPopup = ref(false);
-
-const ratingPopup = ref(false);
 
 // Дані про учнів
 const students = [
@@ -61,12 +54,6 @@ onMounted(async () => {
     loading.value = false; // Завершуємо завантаження
   }
 });
-
-const medalImages = [
-  "/gold-medal.png",
-  "/silver-medal.png",
-  "/bronze-medal.png",
-];
 </script>
 
 <template>
@@ -95,27 +82,6 @@ const medalImages = [
         <tr v-for="student in students.flat()" :key="student.name">
           <td class="student-name">
             {{ student.name }}
-            <img
-              v-if="student.logics.value >= 300"
-              :src="medalImages[0]"
-              alt="gold medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 200"
-              :src="medalImages[1]"
-              alt="silver medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 100"
-              :src="medalImages[2]"
-              alt="bronze medal"
-              class="medal"
-              width="20"
-            />
           </td>
           <td class="logics">{{ student.logics.value }}</td>
         </tr>
