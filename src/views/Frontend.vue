@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
+import Burger from "../components/Burger.vue";
 
 // Дані про учнів
 const students = [
@@ -73,6 +74,7 @@ function toggleBurgerMenu() {
 <template>
   <div class="content">
     <Sidebar />
+    <Burger /> 
     <div class="header">
       <div class="course-info">
         <img
@@ -107,15 +109,6 @@ function toggleBurgerMenu() {
         </tr>
       </tbody>
     </table>
-  </div>
-  <div @click="toggleBurgerMenu" class="burger">
-    <div class="burger-item">
-      <ul>
-        <li>Комп'ютерна грамотність</li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
   </div>
 </template>
 
