@@ -1,8 +1,10 @@
 <script setup>
 import Sidebar from "../components/Sidebar.vue";
+import Burger from "../components/Burger.vue";
 </script>
 
 <template>
+  <Burger />
   <div class="content">
     <Sidebar />
     <div class="main-section">
@@ -63,6 +65,25 @@ import Sidebar from "../components/Sidebar.vue";
   grid-template-columns: repeat(2, minmax(250px, 2fr));
   gap: 30px;
   width: 100%;
+  margin-left: 50px;
+}
+
+@media screen and (max-width: 667px) {
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card {
+    animation: zoomInDown 1s;
+  }
+}
+
+@media screen and (min-width: 667px) and (max-width: 1024px) {
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .card {

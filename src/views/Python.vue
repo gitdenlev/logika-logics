@@ -1,71 +1,10 @@
-<template>
-  <div class="content">
-    <Sidebar />
-    <div class="header">
-      <div class="course-info">
-        <img src="/python.png" alt="Python" class="course-icon" width="40" />
-        <h1>Курс Python</h1>
-      </div>
-    </div>
-
-    <!-- Спінер завантаження -->
-    <div class="loading" v-if="loading">
-      <img src="/logo.svg" alt="logo" width="40" />
-    </div>
-
-    <!-- Таблиця -->
-    <table v-else class="logics-table">
-      <thead>
-        <div class="date-container">
-          <div class="date">
-            <img src="/date.png" alt="date" width="30" />
-            <h2>Субота 12:30</h2>
-          </div>
-        </div>
-
-        <tr>
-          <th>Учень</th>
-          <th>Кількість логіків</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students" :key="student.name">
-          <td class="student-name">
-            {{ student.name }}
-            <img
-              v-if="student.logics.value >= 300"
-              :src="medalImages[0]"
-              alt="gold medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 200"
-              :src="medalImages[1]"
-              alt="silver medal"
-              class="medal"
-              width="20"
-            />
-            <img
-              v-else-if="student.logics.value >= 100"
-              :src="medalImages[2]"
-              alt="bronze medal"
-              class="medal"
-              width="20"
-            />
-          </td>
-          <td class="logics">{{ student.logics.value }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
+import Burger from "../components/Burger.vue";
 
+// Дані про учнів
 const students = [
   { name: "Білич Андрій", logics: ref(0) },
   { name: "Глушко Артем", logics: ref(0) },
@@ -82,124 +21,182 @@ const loading = ref(true); // Стан завантаження
 // Ваш API ключ та ID таблиці
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
-const range = "'Python Субота 12:30'!G3:G10"; // Замініть на потрібний діапазон
+const range = "'Python Субота 12:30'!G3:G10";
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
 onMounted(async () => {
   try {
     const response = await axios.get(url);
-    const sheetData = response.data.values;
+    const sheetsData = response.data.values;
 
+    // Оновлюємо дані учнів
     students.forEach((student, index) => {
-      student.logics.value = Number(sheetData[index][0]) || 0; // Перетворюємо на число і встановлюємо 0, якщо дані відсутні
+      if (sheetsData[index] && sheetsData[index][0] !== undefined) {
+        student.logics.value = sheetsData[index][0]; // Дані для учня
+      }
     });
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
-    loading.value = false;
+    loading.value = false; // Завершуємо завантаження
   }
 });
 
-const medalImages = [
-  "/medal-gold.svg",
-  "/medal-silver.svg",
-  "/medal-bronze.svg",
-];
+const burgerMenu = ref(false);
+
+function toggleBurgerMenu() {
+  burgerMenu.value = !burgerMenu.value;
+}
 </script>
+
+
+<template>
+  <div class="content">
+    <Sidebar />
+    <Burger />
+    <div class="header">
+      <div class="course-info">
+        <img src="/python.png" alt="frontend" class="course-icon" width="60" />
+      </div>
+      <h1>Курс Python</h1>
+    </div>
+
+    <!-- Спінер завантаження -->
+    <div class="loading" v-if="loading">
+      <img src="/logo.svg" alt="logo" width="40" />
+    </div>
+
+    <!-- Таблиця -->
+    <table v-else class="logics-table">
+      <thead>
+        <tr>
+          <th>Учень</th>
+          <th>Кількість логіків</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="student in students.flat()" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
 
 <style scoped>
 .content {
   display: flex;
-  margin-left: 250px; /* Додайте відступ, щоб врахувати ширину сайдбару */
-  max-width: 90%;
-}
-
-
-@media screen and (max-width: 768px) {
-  .content { 
-    max-width: 50%;
-  }
-  
+  flex-direction: column;
+  margin-left: 250px; /* Відступ для сайдбару */
 }
 
 .header {
-  position: absolute;
   display: flex;
   align-items: center;
-  color: #f1f1f1;
+  gap: 30px;
+  color: black;
+}
+
+.course-info {
+  display: flex;
+  flex-direction: column; /* Вертикальне вирівнювання */
+  align-items: center; /* Центруємо по горизонталі */
 }
 
 .course-info h1 {
   margin: 0;
-  font-size: 2rem;
-}
-
-.course-info p {
-  margin: 0;
-  font-size: 1rem;
-  color: #333;
+  padding-top: 20px;
+  color: black;
 }
 
 .logics-table {
-  margin-top: 70px;
+  margin-top: 20px; /* Відступ від хедера */
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 10px;
-  border: none;
-}
-
-
-@media screen and (max-width: 768px) {
-  .logics-table {
-    width: 100%;
-  }
-  
+  border-radius: 15px;
+  overflow: hidden; /* Щоб уникнути зрізів */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь для виділення */
 }
 
 th,
 td {
   padding: 15px;
-  font-weight: normal;
-  border: 1px solid #ddd;
   font-weight: bold;
 }
 
 th {
-  background-color: #037ffc;
+  background: linear-gradient(145deg, #3498db, #2980b9);
   color: #ffffff;
   font-size: 1.1rem;
-  border: none;
+  border-bottom: 2px solid #2980b9;
 }
 
 td {
   background-color: #ffffff;
   color: #333;
   font-size: 1rem;
-}
-
-td.logics {
-  text-align: center;
+  border-bottom: 1px solid #ddd; /* Легка межа між рядками */
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* Легке чергування рядків */
+  background-color: #f5f5f5; /* Легке чергування рядків */
 }
 
 tbody tr:hover {
-  background-color: #e0e0e0; /* Тло при наведенні */
+  background-color: #e0f7fa; /* Світло-блакитний фон при наведенні */
+}
+
+.logics {
+  text-align: center;
+  padding: 15px;
+  /* border-radius: 15px; */
+  background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Легкий градієнт */
 }
 
 .loading {
   margin: 20px auto;
   animation: spinAndFlip 1s linear infinite;
-  position: relative; /* Важливо для коректного розташування абсолютного елемента */
-  width: 100%; /* Або фіксована ширина, якщо потрібно */
-  height: 100%; /* Або фіксована висота, якщо потрібно */
-  display: flex; /* Використовуємо flexbox для центрування */
+  display: flex;
   justify-content: center; /* Горизонтальне центрування */
-  align-items: center;
+  align-items: center; /* Вертикальне центрування */
+  width: 100%;
+  height: 100%;
+}
+
+.burger {
+  overflow: hidden;
+  position: absolute;
+  top: 5%;
+  right: 5%; /* Зміщення праворуч */
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  background: #3498db;
+  color: white;
+  border-radius: 30px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+  transition: background 0.3s ease; /* Плавний перехід кольору */
+}
+
+.burger:hover {
+  background: #2980b9; /* Зміна кольору при наведенні */
+}
+
+.burger-item {
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  padding: 10px;
+  gap: 10px;
+  font-size: 18px;
 }
 
 @keyframes spinAndFlip {
@@ -220,23 +217,43 @@ tbody tr:hover {
   }
 }
 
-.course-info {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+@media screen and (min-width: 360px) {
+  .header {
+    font-size: 14px;
+  }
 }
 
-.date-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px; /* Можна видалити, якщо не потрібен */
+@media screen and (max-width: 768px) {
+  .content {
+    margin-left: 0px;
+    width: 100%;
+  }
+  .logics {
+    width: 10%;
+  }
+
+  th {
+    padding: 20px;
+    /* border-radius: 20px; */
+  }
+
+  .logics {
+    padding: 30px;
+  }
+  .burger {
+    display: flex;
+  }
 }
 
-.date {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #f1f1f1;
+@media screen and (min-width: 769px) {
+  .content {
+    margin-left: 300px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content {
+    margin-left: 300px;
+  }
 }
 </style>

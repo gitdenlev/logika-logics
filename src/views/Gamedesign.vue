@@ -1,29 +1,75 @@
 <script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import Sidebar from "../components/Sidebar.vue";
+import Burger from "../components/Burger.vue";
+
+// Дані про учнів
 const students = [
-  { student: "Булах Кіра", logics: 163 },
-  { student: "Виговський Матвій", logics: 64 },
-  { student: "Гуржій Кирило", logics: 165 },
-  { student: "Назаренко Ярослав", logics: 140 },
-  { student: "Осадчий Марк", logics: 170 },
+  { name: "Бєлаш Богдан", logics: ref(0) },
+  { name: "Вітковський Артем", logics: ref(0) },
+  { name: "Гуменюк Анна", logics: ref(0) },
+  { name: "Жуплєв Тимофій", logics: ref(0) },
+  { name: "Ібрагімов Тамерлан", logics: ref(0) },
+  { name: "Карнаух Єлісей", logics: ref(0) },
+  { name: "Кондрашов Захар", logics: ref(0) },
+  { name: "Кондрашова Поліна", logics: ref(0) },
+  { name: "Курмельов Тимур", logics: ref(0) },
+  { name: "Шпирний Кирило", logics: ref(0) },
 ];
 
-const students2 = [
-  { student: "Бутук Ярослав", logics: 230 },
-  { student: "Довбня Михайло", logics: 206 },
-  { student: "Марченко Єгор", logics: 215 },
-  { student: "Скрипников Кирило", logics: 245 },
-  { student: "Чикаловський Станіслав", logics: 220 },
-];
+const loading = ref(true); // Стан завантаження
+
+// Ваш API ключ та ID таблиці
+const apiKey = import.meta.env.VITE_API_KEY;
+const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
+const range = "'Python Субота 12:30'!G3:G10";
+
+const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+
+onMounted(async () => {
+  try {
+    const response = await axios.get(url);
+    const sheetsData = response.data.values;
+
+    // Оновлюємо дані учнів
+    students.forEach((student, index) => {
+      if (sheetsData[index] && sheetsData[index][0] !== undefined) {
+        student.logics.value = sheetsData[index][0]; // Дані для учня
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  } finally {
+    loading.value = false; // Завершуємо завантаження
+  }
+});
+
+const burgerMenu = ref(false);
+
+function toggleBurgerMenu() {
+  burgerMenu.value = !burgerMenu.value;
+}
 </script>
 
 <template>
-  <div class="container">
-    <router-link to="/"
-      >Назад</router-link>
-    <h2>Курс Геймдизайну</h2>
-    <h2 class="table-title">Таблиця Логіків</h2>
-    <h2 class="group-time">Субота 10:30</h2>
-    <table class="logics-table">
+  <div class="content">
+    <Sidebar />
+    <Burger />
+    <div class="header">
+      <div class="course-info">
+        <img src="/gamedesign.png" alt="gamedesign" class="course-icon" width="60" />
+      </div>
+      <h1>Курс Геймдизайн</h1>
+    </div>
+
+    <!-- Спінер завантаження -->
+    <div class="loading" v-if="loading">
+      <img src="/logo.svg" alt="logo" width="40" />
+    </div>
+
+    <!-- Таблиця -->
+    <table v-else class="logics-table">
       <thead>
         <tr>
           <th>Учень</th>
@@ -31,24 +77,11 @@ const students2 = [
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students2" :key="student.lastName">
-          <td class="student-name">{{ student.student }}</td>
-          <td>{{ student.logics }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <h2 style="margin-top: 10px" class="group-time">Неділя 11:00</h2>
-    <table class="logics-table">
-      <thead>
-        <tr>
-          <th>Учень</th>
-          <th>Кількість логіків</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students" :key="student.lastName">
-          <td class="student-name">{{ student.student }}</td>
-          <td>{{ student.logics }}</td>
+        <tr v-for="student in students.flat()" :key="student.name">
+          <td class="student-name">
+            {{ student.name }}
+          </td>
+          <td class="logics">{{ student.logics.value }}</td>
         </tr>
       </tbody>
     </table>
@@ -56,73 +89,174 @@ const students2 = [
 </template>
 
 <style scoped>
-.container {
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px; /* Відступ для сайдбару */
 }
 
-h1 {
-  color: #7a3db8;
-  text-align: center;
-  margin-bottom: 20px;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: black;
 }
 
-p {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
+.course-info {
+  display: flex;
+  flex-direction: column; /* Вертикальне вирівнювання */
+  align-items: center; /* Центруємо по горизонталі */
 }
 
-h2 {
-  color: #5e287c;
-}
-
-.course-link:hover {
-  background-color: #5e287c;
+.course-info h1 {
+  margin: 0;
+  padding-top: 20px;
+  color: black;
 }
 
 .logics-table {
+  margin-top: 20px; /* Відступ від хедера */
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden; /* Щоб уникнути зрізів */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь для виділення */
 }
 
 th,
 td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+  padding: 15px;
   font-weight: bold;
-}
-
-.student-name {
-  text-align: left;
 }
 
 th {
-  background-color: #7a3db8;
+  background: linear-gradient(145deg, #3498db, #2980b9);
   color: #ffffff;
-  font-weight: bold;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #2980b9;
 }
 
 td {
-  background-color: #f8f5ff;
+  background-color: #ffffff;
   color: #333;
-  width: 50%;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd; /* Легка межа між рядками */
 }
 
 tbody tr:nth-child(even) {
-  background-color: #ede7ff;
+  background-color: #f5f5f5; /* Легке чергування рядків */
 }
 
 tbody tr:hover {
-  background-color: #d9c9ff;
+  background-color: #e0f7fa; /* Світло-блакитний фон при наведенні */
 }
-.group-time {
+
+.logics {
   text-align: center;
+  padding: 15px;
+  /* border-radius: 15px; */
+  background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Легкий градієнт */
+}
+
+.loading {
+  margin: 20px auto;
+  animation: spinAndFlip 1s linear infinite;
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  width: 100%;
+  height: 100%;
+}
+
+.burger {
+  overflow: hidden;
+  position: absolute;
+  top: 5%;
+  right: 5%; /* Зміщення праворуч */
+  display: flex;
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* Вертикальне центрування */
+  background: #3498db;
+  color: white;
+  border-radius: 30px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+  transition: background 0.3s ease; /* Плавний перехід кольору */
+}
+
+.burger:hover {
+  background: #2980b9;
+}
+
+.burger-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  font-size: 18px;
+}
+
+
+
+@keyframes spinAndFlip {
+  0% {
+    transform: scaleX(1);
+  }
+  25% {
+    transform: scaleX(1.1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  75% {
+    transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .header {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    margin-left: 0px;
+    width: 100%;
+  }
+  .logics {
+    width: 10%;
+  }
+
+  th {
+    padding: 20px;
+    /* border-radius: 20px; */
+  }
+
+  .logics {
+    padding: 30px;
+  }
+  .burger {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .content {
+    margin-left: 300px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content {
+    margin-left: 300px;
+  }
 }
 </style>
