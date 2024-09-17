@@ -27,7 +27,7 @@ const courses = [
     link: "/compsci",
     icon: "/compsci.png",
   },
-  { name: "Візуальне програмування", link: "/scratch", icon: "/scratch.svg" },
+  { name: "Scratch", link: "/scratch", icon: "/scratch.svg" },
   { name: "Геймдизайн", link: "/gamedesign", icon: "/gamedesign.png" },
   { name: "Веб-дизайн", link: "/webdesign", icon: "/webdesign.png" },
   {
@@ -109,16 +109,17 @@ const courses = [
   background-color: #027ffc; /* Колір кнопки */
   border-radius: 30px;
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s linear;
   color: white;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
 }
 
-.contact-button img {
-  transition: all 0.3s linear;
+.contact-button:hover {
+  transform: scale(1.05);
 }
+
 
 @keyframes fly {
   0% {
@@ -138,10 +139,7 @@ const courses = [
   }
 }
 
-.contact-button img:hover {
-  animation: fly 1s infinite; /* Добавлено infinite для бесконечной анимации */
-  transform: scale(1.1);
-}
+
 
 @media screen and (min-width: 360px) and (max-width: 768px) {
   .sidebar {

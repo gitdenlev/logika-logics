@@ -44,7 +44,6 @@ onMounted(async () => {
     const responses = await axios.all(urls.map((url) => axios.get(url)));
 
     const sheetsData = responses.map((response) => response.data.values);
-    console.log(sheetsData); // Додайте цей рядок для перевірки отриманих даних
 
     students[0].forEach((student, index) => {
       if (sheetsData[1][index] && sheetsData[1][index][0] !== undefined) {

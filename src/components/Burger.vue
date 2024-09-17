@@ -12,6 +12,11 @@ import courses from "../data"; // Імпортуємо масив з курса�
       </li>
     </ul>
   </div>
+  <div class="feedback animate__animated animate__swing">
+    <a href="https://t.me/denyalove" target="_blank">
+      <img src="/chat.png" alt="chat" />
+    </a>
+  </div>
 </template>
 
 <style scoped>
@@ -20,9 +25,6 @@ import courses from "../data"; // Імпортуємо масив з курса�
   top: 20%;
   left: 0;
   padding: 10px;
-  border-radius: 30px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1),
-    /* верхній слабкий шар */ 0px 15px 40px rgba(0, 0, 0, 0.2); /* нижній глибший шар */
   display: grid;
   align-items: center;
   justify-content: center;
@@ -32,13 +34,16 @@ import courses from "../data"; // Імпортуємо масив з курса�
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 15px;
+  border-radius: 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1),
+    /* верхній слабкий шар */ 0px 15px 40px rgba(0, 0, 0, 0.2); /* нижній глибший шар */
 }
 
 li {
@@ -52,23 +57,27 @@ li img:hover {
 }
 
 img {
-  max-width: 40px;
+  width: 40px;
   height: 40px;
 }
 
-.chat-icon {
-  position: absolute;
-  top: -25px;
-  background-color: white;
-  padding: 5px 10px;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 12px;
-  text-align: center;
+.feedback {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+}
+
+.feedback img {
+  width: 50px;
+  height: 50px;
 }
 
 @media screen and (min-width: 769px) {
   .burger-menu {
+    display: none;
+  }
+
+  .feedback {
     display: none;
   }
 }

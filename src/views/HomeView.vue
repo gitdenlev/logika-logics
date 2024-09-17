@@ -95,7 +95,7 @@ import Burger from "../components/Burger.vue";
 }
 
 .card:hover {
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 10px 10px 30px 10px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
