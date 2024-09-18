@@ -6,16 +6,14 @@ import Burger from "../components/Burger.vue";
 
 // Дані про учнів
 const students = [
-  { name: "Бєлаш Богдан", logics: ref(0) },
-  { name: "Вітковський Артем", logics: ref(0) },
-  { name: "Гуменюк Анна", logics: ref(0) },
-  { name: "Жуплєв Тимофій", logics: ref(0) },
-  { name: "Ібрагімов Тамерлан", logics: ref(0) },
-  { name: "Карнаух Єлісей", logics: ref(0) },
-  { name: "Кондрашов Захар", logics: ref(0) },
-  { name: "Кондрашова Поліна", logics: ref(0) },
-  { name: "Курмельов Тимур", logics: ref(0) },
-  { name: "Шпирний Кирило", logics: ref(0) },
+  { name: "Барсук Ярослав", logics: ref(0) },
+  { name: "Візіренко Юлія", logics: ref(0) },
+  { name: "Козиряцький Марк", logics: ref(0) },
+  { name: "Кравець Данієла", logics: ref(0) },
+  { name: "Новіков Лев", logics: ref(0) },
+  { name: "Осадчий Святослав", logics: ref(0) },
+  { name: "Скрябіна Марія", logics: ref(0) },
+  { name: "Суптеля Ярослав", logics: ref(0) },
 ];
 
 const loading = ref(true); // Стан завантаження
@@ -23,7 +21,7 @@ const loading = ref(true); // Стан завантаження
 // Ваш API ключ та ID таблиці
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
-const range = "'Python Субота 12:30'!G3:G10";
+const range = "'Геймдизайн Неділя 14:00'!G3:G10";
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 

@@ -15,6 +15,7 @@ const students = [
   { name: "Кондрашов Захар", logics: ref(0) },
   { name: "Кондрашова Поліна", logics: ref(0) },
   { name: "Курмельов Тимур", logics: ref(0) },
+  { name: "Понамарьова Лана", logics: ref(0) },
   { name: "Шпирний Кирило", logics: ref(0) },
 ];
 
@@ -23,7 +24,7 @@ const loading = ref(true); // Стан завантаження
 // Ваш API ключ та ID таблиці
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
-const range = "'Python Субота 12:30'!G3:G10";
+const range = "'Scratch Неділя 10:00'!G3:G13";
 
 const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 

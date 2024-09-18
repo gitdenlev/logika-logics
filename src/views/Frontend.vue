@@ -20,6 +20,10 @@ const students = [
     { name: "Сирота Кіра", logics: ref(0) },
     { name: "Снисарь Ярослав", logics: ref(0) },
     { name: "Халиулин Давид", logics: ref(0) },
+    { name: "Берлін Денис", logics: ref(0) },
+    { name: "Головкова Анастасія", logics: ref(0) },
+    { name: "Жученко Євген", logics: ref(0) },
+    { name: "Швед Дарія", logics: ref(0) },
   ],
 ];
 
@@ -30,8 +34,8 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
 
 const ranges = [
-  "'Frontend Вівторок 18:30'!G3:G8",
-  "'Frontend П'ятниця 15:00'!G3:G7",
+  "'Frontend Вівторок 18:30'!G3:G12",
+  "'Frontend П'ятниця 19:00'!G3:G7",
 ];
 
 const urls = [
@@ -73,7 +77,7 @@ function toggleBurgerMenu() {
 <template>
   <div class="content">
     <Sidebar />
-    <Burger /> 
+    <Burger />
     <div class="header">
       <div class="course-info">
         <img
@@ -91,23 +95,36 @@ function toggleBurgerMenu() {
       <img src="/logo.svg" alt="logo" width="40" />
     </div>
 
-    <!-- Таблиця -->
-    <table v-else class="logics-table">
-      <thead>
-        <tr>
-          <th>Учень</th>
-          <th>Кількість логіків</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students.flat()" :key="student.name">
-          <td class="student-name">
-            {{ student.name }}
-          </td>
-          <td class="logics">{{ student.logics.value }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Таблиця для першої групи -->
+    <div v-else>
+      <table class="logics-table">
+        <thead>
+          <tr>
+            <th>Учень</th>
+            <th>Кількість логіків</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="student in students[0]" :key="student.name">
+            <td class="student-name">{{ student.name }}</td>
+            <td class="logics">{{ student.logics.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Відступ між групами -->
+      <div class="group-separator"></div>
+
+      <!-- Таблиця для другої групи (без заголовків) -->
+      <table class="logics-table">
+        <tbody>
+          <tr v-for="student in students[1]" :key="student.name">
+            <td class="student-name">{{ student.name }}</td>
+            <td class="logics">{{ student.logics.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -177,8 +194,8 @@ tbody tr:hover {
 
 .logics {
   text-align: center;
+  width: 50%;
   padding: 15px;
-  /* border-radius: 15px; */
   background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Легкий градієнт */
 }
 
@@ -207,7 +224,7 @@ tbody tr:hover {
   height: 50px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
-  transition: background 0.3s ease; /* Плавний перехід кольору */
+  transition: background 0.3s linear; /* Плавний перехід кольору */
 }
 
 .burger:hover {
@@ -241,11 +258,11 @@ tbody tr:hover {
   }
 }
 
-
 @media screen and (min-width: 360px) {
   .header {
     font-size: 14px;
   }
+  
 }
 
 @media screen and (max-width: 768px) {
@@ -254,12 +271,11 @@ tbody tr:hover {
     width: 100%;
   }
   .logics {
-    width: 10%;
+    width: 50%;
   }
 
   th {
     padding: 20px;
-    /* border-radius: 20px; */
   }
 
   .logics {
