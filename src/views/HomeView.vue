@@ -50,7 +50,7 @@ import Burger from "../components/Burger.vue";
   display: flex;
   margin-left: 250px;
   padding: 20px;
-  min-height: 100vh;
+  /* height: 100vh; */
 }
 
 .main-section {

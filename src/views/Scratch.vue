@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import TypeIt from "typeit";
 import Sidebar from "../components/Sidebar.vue";
 import Burger from "../components/Burger.vue";
 
@@ -44,13 +45,14 @@ onMounted(async () => {
   } finally {
     loading.value = false; // Завершуємо завантаження
   }
+
+  new TypeIt("#course-title", {
+    strings: "Курс Scratch",
+    speed: 100,
+    loop: false,
+    cursor: false,
+  }).go();
 });
-
-const burgerMenu = ref(false);
-
-function toggleBurgerMenu() {
-  burgerMenu.value = !burgerMenu.value;
-}
 </script>
 
 <template>
@@ -58,10 +60,10 @@ function toggleBurgerMenu() {
     <Sidebar />
     <Burger />
     <div class="header">
-      <div class="course-info">
+      <div class="course-info animate__animated animate__bounceIn animate__delay-1s">
         <img src="/scratch.svg" alt="scratch" class="course-icon" width="60" />
       </div>
-      <h1>Курс Scratch</h1>
+      <h1 id="course-title"></h1>
     </div>
 
     <!-- Спінер завантаження -->
@@ -201,8 +203,6 @@ tbody tr:hover {
   font-size: 18px;
 }
 
-
-
 @keyframes spinAndFlip {
   0% {
     transform: scaleX(1);
@@ -259,5 +259,8 @@ tbody tr:hover {
   .content {
     margin-left: 300px;
   }
+}
+#course-title {
+  font-weight: bold;
 }
 </style>

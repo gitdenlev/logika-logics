@@ -1,19 +1,28 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import TypeIt from "typeit";
 import Sidebar from "../components/Sidebar.vue";
 import Burger from "../components/Burger.vue";
 
 // Дані про учнів
 const students = [
-  { name: "Білич Андрій", logics: ref(0) },
-  { name: "Глушко Артем", logics: ref(0) },
-  { name: "Головенко Василь", logics: ref(0) },
-  { name: "Кисельов Артем", logics: ref(0) },
-  { name: "Леміш Аліна", logics: ref(0) },
-  { name: "Лозова Олександра", logics: ref(0) },
-  { name: "Хоменко Матвій", logics: ref(0) },
-  { name: "Шматов Богдан", logics: ref(0) },
+  [
+    { name: "Данильченко Кирило", logics: ref(0) },
+    { name: "Леміш Аліна", logics: ref(0) },
+    { name: "Мирошниченко Андрій", logics: ref(0) },
+    { name: "Семенов Артур", logics: ref(0) },
+    { name: "Хом'як Нікіта", logics: ref(0) },
+  ],
+  [
+    { name: "Березень Олександра", logics: ref(0) },
+    { name: "Дупак Володимир", logics: ref(0) },
+    { name: "Кірков Євген", logics: ref(0) },
+    { name: "Оленів Микита", logics: ref(0) },
+    { name: "Онищенко Володимир", logics: ref(0) },
+    { name: "Пода Ілля", logics: ref(0) },
+    { name: "Слабко Роман", logics: ref(0) },
+  ],
 ];
 
 const loading = ref(true); // Стан завантаження
@@ -21,19 +30,32 @@ const loading = ref(true); // Стан завантаження
 // Ваш API ключ та ID таблиці
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
-const range = "'Python Субота 12:30'!G3:G10";
 
-const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+const ranges = [
+  "'Вебдизайн Субота 17:00'!G3:G9",
+  "'Вебдизайн Неділя 15:30'!G3:G7",
+];
+
+const urls = [
+  `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[0]}?key=${apiKey}`,
+  `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[1]}?key=${apiKey}`,
+];
 
 onMounted(async () => {
   try {
-    const response = await axios.get(url);
-    const sheetsData = response.data.values;
+    const responses = await axios.all(urls.map((url) => axios.get(url)));
 
-    // Оновлюємо дані учнів
-    students.forEach((student, index) => {
-      if (sheetsData[index] && sheetsData[index][0] !== undefined) {
-        student.logics.value = sheetsData[index][0]; // Дані для учня
+    const sheetsData = responses.map((response) => response.data.values);
+
+    students[0].forEach((student, index) => {
+      if (sheetsData[1][index] && sheetsData[1][index][0] !== undefined) {
+        student.logics.value = sheetsData[1][index][0]; // Дані для першої групи
+      }
+    });
+
+    students[1].forEach((student, index) => {
+      if (sheetsData[0][index] && sheetsData[0][index][0] !== undefined) {
+        student.logics.value = sheetsData[0][index][0]; // Дані для другої групи
       }
     });
   } catch (error) {
@@ -41,49 +63,67 @@ onMounted(async () => {
   } finally {
     loading.value = false; // Завершуємо завантаження
   }
+  new TypeIt("#course-title", {
+    strings: "Курс Вебдизайн",
+    speed: 100,
+    loop: false,
+    cursor: false,
+  }).go();
 });
-
-const burgerMenu = ref(false);
-
-function toggleBurgerMenu() {
-  burgerMenu.value = !burgerMenu.value;
-}
 </script>
-
 
 <template>
   <div class="content">
     <Sidebar />
     <Burger />
     <div class="header">
-      <div class="course-info">
-        <img src="/webdesign.png" alt="frontend" class="course-icon" width="60" />
+      <div
+        class="course-info animate__animated animate__bounceIn animate__delay-1s"
+      >
+        <img
+          src="/webdesign.png"
+          alt="webdesign"
+          class="course-icon"
+          width="60"
+        />
       </div>
-      <h1>Курс Веб-дизайн</h1>
+      <h1 id="course-title"></h1>
     </div>
-
     <!-- Спінер завантаження -->
     <div class="loading" v-if="loading">
       <img src="/logo.svg" alt="logo" width="40" />
     </div>
 
-    <!-- Таблиця -->
-    <table v-else class="logics-table">
-      <thead>
-        <tr>
-          <th>Учень</th>
-          <th>Кількість логіків</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students.flat()" :key="student.name">
-          <td class="student-name">
-            {{ student.name }}
-          </td>
-          <td class="logics">{{ student.logics.value }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Таблиця для першої групи -->
+    <div v-else>
+      <table class="logics-table">
+        <thead>
+          <tr>
+            <th>Учень</th>
+            <th>Кількість логіків</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="student in students[0]" :key="student.name">
+            <td class="student-name">{{ student.name }}</td>
+            <td class="logics">{{ student.logics.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Відступ між групами -->
+      <div class="group-separator"></div>
+
+      <!-- Таблиця для другої групи (без заголовків) -->
+      <table class="logics-table">
+        <tbody>
+          <tr v-for="student in students[1]" :key="student.name">
+            <td class="student-name">{{ student.name }}</td>
+            <td class="logics">{{ student.logics.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -153,8 +193,8 @@ tbody tr:hover {
 
 .logics {
   text-align: center;
+  width: 50%;
   padding: 15px;
-  /* border-radius: 15px; */
   background: linear-gradient(145deg, #f5f5f5, #ffffff); /* Легкий градієнт */
 }
 
@@ -183,7 +223,7 @@ tbody tr:hover {
   height: 50px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
-  transition: background 0.3s ease; /* Плавний перехід кольору */
+  transition: background 0.3s linear; /* Плавний перехід кольору */
 }
 
 .burger:hover {
@@ -229,12 +269,11 @@ tbody tr:hover {
     width: 100%;
   }
   .logics {
-    width: 10%;
+    width: 50%;
   }
 
   th {
     padding: 20px;
-    /* border-radius: 20px; */
   }
 
   .logics {
@@ -255,5 +294,8 @@ tbody tr:hover {
   .content {
     margin-left: 300px;
   }
+}
+#course-title {
+  font-weight: bold;
 }
 </style>

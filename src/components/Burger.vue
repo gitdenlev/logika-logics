@@ -7,7 +7,7 @@ import courses from "../data"; // Імпортуємо масив з курса�
     <ul>
       <li v-for="course in courses" :key="course.name">
         <router-link :to="course.link">
-          <img :src="course.img" :alt="course.name" />
+          <img :src="course.icon" :alt="course.name" />
         </router-link>
       </li>
     </ul>

@@ -16,7 +16,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 50vh;
   text-align: center;
   gap: 20px;
   color: black;
@@ -42,5 +42,6 @@ a {
   border-radius: 30px;
   padding: 15px;
   background-color: #fff;
+  width: 100%;
 }
 </style>

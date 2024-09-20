@@ -1,3 +1,7 @@
+<script setup>
+import courses from "../data.js";
+</script>
+
 <template>
   <div class="sidebar">
     <ul class="sidebar-list">
@@ -20,25 +24,7 @@
   </div>
 </template>
 
-<script setup>
-const courses = [
-  {
-    name: "Комп'ютерна грамотність",
-    link: "/compsci",
-    icon: "/compsci.png",
-  },
-  { name: "Scratch", link: "/scratch", icon: "/scratch.svg" },
-  { name: "Геймдизайн", link: "/gamedesign", icon: "/gamedesign.png" },
-  { name: "Веб-дизайн", link: "/webdesign", icon: "/webdesign.png" },
-  {
-    name: "Графічний дизайн",
-    link: "/graphicdesign",
-    icon: "/graphicdesign.png",
-  },
-  { name: "Python", link: "/python", icon: "/python.png" },
-  { name: "Frontend", link: "/frontend", icon: "/frontend.png" },
-];
-</script>
+
 
 <style scoped>
 .sidebar {
@@ -109,7 +95,6 @@ const courses = [
   background-color: #027ffc; /* Колір кнопки */
   border-radius: 30px;
   text-align: center;
-  transition: all 0.3s linear;
   color: white;
   text-decoration: none;
   font-size: 16px;
@@ -118,8 +103,8 @@ const courses = [
 
 .contact-button:hover {
   transform: scale(1.05);
+  transition: 0.3s linear;
 }
-
 
 @keyframes fly {
   0% {
@@ -138,8 +123,6 @@ const courses = [
     transform: translateX(0) translateY(0) rotate(0deg);
   }
 }
-
-
 
 @media screen and (min-width: 360px) and (max-width: 768px) {
   .sidebar {
