@@ -24,8 +24,6 @@ import courses from "../data.js";
   </div>
 </template>
 
-
-
 <style scoped>
 .sidebar {
   position: fixed;

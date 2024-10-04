@@ -2,55 +2,58 @@
 import Sidebar from "../components/Sidebar.vue";
 import Burger from "../components/Burger.vue";
 </script>
-
 <template>
   <Burger />
   <div class="content">
     <Sidebar />
     <div class="main-section">
-      <div class="info-cards">
-        <div class="card animate__animated animate__zoomInUp">
-          <img src="/progress.png" alt="progress" />
-          <div class="text-content">
-            <h2>Відстежування свого прогресу</h2>
-            <p>Зручно відстежуйте свої досягнення та результати</p>
+      <div class="info-and-facts">
+        <div class="info-cards">
+          <div class="card animate__animated animate__zoomInUp">
+            <img src="/progress.png" alt="progress" />
+            <div class="text-content">
+              <h2>Відстежування свого прогресу</h2>
+              <p>Зручно відстежуйте свої досягнення та результати</p>
+            </div>
+          </div>
+
+          <div class="card animate__animated animate__zoomInUp animate__delay-1s">
+            <img src="/study.png" alt="study" />
+            <div class="text-content">
+              <h2>Навчання із задоволенням</h2>
+              <p>Інтерактивні курси, що роблять навчання приємним</p>
+            </div>
+          </div>
+
+          <div class="card animate__animated animate__zoomInUp animate__delay-2s">
+            <img src="/chat.png" alt="contact" />
+            <div class="text-content">
+              <h2>Залишайтеся на зв'язку</h2>
+              <p>Миттєвий доступ до спілкування з вашим викладачем</p>
+            </div>
+          </div>
+
+          <div class="card animate__animated animate__zoomInUp animate__delay-3s">
+            <img src="/interface.png" alt="interface" />
+            <div class="text-content">
+              <h2>Зручний інтерфейс</h2>
+              <p>Інтуїтивний дизайн для максимальної ефективності</p>
+            </div>
           </div>
         </div>
 
-        <div class="card animate__animated animate__zoomInUp animate__delay-1s">
-          <img src="/study.png" alt="study" />
-          <div class="text-content">
-            <h2>Навчання із задоволенням</h2>
-            <p>Інтерактивні курси, що роблять навчання приємним</p>
-          </div>
-        </div>
-
-        <div class="card animate__animated animate__zoomInUp animate__delay-2s">
-          <img src="/chat.png" alt="contact" />
-          <div class="text-content">
-            <h2>Залишайтеся на зв'язку</h2>
-            <p>Миттєвий доступ до спілкування з вашим викладачем</p>
-          </div>
-        </div>
-
-        <div class="card animate__animated animate__zoomInUp animate__delay-3s">
-          <img src="/interface.png" alt="interface" />
-          <div class="text-content">
-            <h2>Зручний інтерфейс</h2>
-            <p>Інтуїтивний дизайн для максимальної ефективності</p>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .content {
   display: flex;
   margin-left: 250px;
   padding: 20px;
-  /* height: 100vh; */
 }
 
 .main-section {

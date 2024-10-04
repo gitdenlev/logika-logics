@@ -10,6 +10,7 @@ const courses = [
   },
   { name: "Python", icon: "/python.png", link: "/python" },
   { name: "Frontend", icon: "/frontend.png", link: "/frontend" },
+  { name: "Зона випадковостей", icon: "/random.png", link: "/random" },
 ];
 
 export default courses;

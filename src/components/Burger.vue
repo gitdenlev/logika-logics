@@ -65,6 +65,7 @@ img {
   position: fixed;
   bottom: 0;
   right: 10px;
+  z-index: 1;
 }
 
 .feedback img {

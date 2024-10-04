@@ -6,6 +6,7 @@ import Gamedesign from "../views/Gamedesign.vue";
 import Webdesign from "../views/Webdesign.vue";
 import Python from "../views/Python.vue";
 import Frontend from "../views/Frontend.vue";
+import Random from "../views/Random.vue";
 
 export default createRouter({
   history: createWebHistory(),
@@ -37,6 +38,10 @@ export default createRouter({
     {
       path: "/:pathMatch(.*)*",
       component: NotFound,
+    },
+    {
+      path: "/random",
+      component: Random,
     },
   ],
 });
