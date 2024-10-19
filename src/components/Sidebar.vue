@@ -7,7 +7,12 @@ import courses from "../data.js";
     <ul class="sidebar-list">
       <li v-for="course in courses" :key="course.name">
         <div class="sidebar-item">
-          <img :src="course.icon" alt="" class="course-icon" />
+          <img
+            :src="course.icon"
+            alt=""
+            class="course-icon"
+            :class="{ active: course.link === $route.path }"
+          />
           <router-link
             :class="course.link === $route.path ? 'active' : ''"
             :to="course.link"
@@ -18,6 +23,15 @@ import courses from "../data.js";
         </div>
       </li>
     </ul>
+
+    <div class="halloween-info">
+      <h2>Акція</h2>
+      <h3>
+        Приходь на заняття в хеловінському костюмі та отримуй додаткові 5
+        логіків
+      </h3>
+    </div>
+
     <a class="contact-button" href="https://t.me/denyalove" target="_blank"
       >Написати викладачу</a
     >
@@ -30,10 +44,11 @@ import courses from "../data.js";
   left: 0;
   top: 0;
   height: 100%;
-  width: 300px;
-  background-color: #92d0ff;
+  /* Хеловін тема */
+  background-color: #2b1a29; /* Темний фон для сайдбара */
+  background: linear-gradient(to bottom, #3d2b3c, #2b1a29); /* Градієнт */
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додана тінь */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Додана більш виразна тінь */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -54,33 +69,48 @@ import courses from "../data.js";
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  font-size: 1.2rem;
 }
 
 .course-icon {
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  /* Хеловін тема */
+  filter: grayscale(30%) brightness(60%) contrast(80%);
 }
 
 .sidebar-link {
-  color: black;
   text-decoration: none;
   padding: 10px;
   border-radius: 25px;
   transition: background-color 0.3s, transform 0.2s;
   flex-grow: 0.1;
   text-align: center;
+  color: white;
 }
 
 .sidebar-link:hover {
   background-color: #3599db;
+  /* Хеловін тема */
+  background-color: #abaf3f;
   transform: translateX(5px);
-  color: white;
+  color: black;
 }
+
+/* .sidebar-link.active img {
+  filter: 0;
+} */
 
 .sidebar-link.active {
   background-color: #3599db;
-  color: white;
+  /* Хеловін тема */
+  background-color: #abaf3f;
+  color: black;
+}
+
+.course-icon.active {
+  filter: none;
 }
 
 .contact-button {
@@ -93,15 +123,26 @@ import courses from "../data.js";
   background-color: #027ffc; /* Колір кнопки */
   border-radius: 30px;
   text-align: center;
-  color: white;
+  /* color: white; */
   text-decoration: none;
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: bold;
+  position: relative;
+  /* Хеловін тема */
+  background-color: #abaf3f;
+  color: black;
 }
 
-.contact-button:hover {
-  transform: scale(1.05);
-  transition: 0.3s linear;
+/* Хеловін тема */
+.contact-button::after {
+  content: url(/halloween/pumpkin.png);
+  display: inline-block;
+  position: absolute;
+  top: -25px;
+  right: 0;
+  transform: rotate(15deg);
+  width: 50px;
+  height: 50px;
 }
 
 @keyframes fly {
@@ -126,5 +167,36 @@ import courses from "../data.js";
   .sidebar {
     display: none;
   }
+}
+
+/* Хеловін тема */
+.halloween-info {
+  background-color: #472d3c; /* Темний фон для блоку */
+  color: #f0e68c; /* Кольори, які поєднуються з Halloween темою */
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  max-width: 300px; /* Обмеження ширини */
+  margin-bottom: 15px;
+}
+
+.halloween-info::after {
+  content: url(/halloween/halloween-banner.png);
+  position: absolute;
+  left: 75%;
+  top: 72%;
+}
+
+.halloween-info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ffd700; /* Золотистий колір для заголовку */
+}
+
+.halloween-info h3 {
+  font-weight: normal;
+  color: white;
 }
 </style>

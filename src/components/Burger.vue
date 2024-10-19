@@ -29,6 +29,7 @@ import courses from "../data"; // Імпортуємо масив з курса�
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  z-index: 1;
 }
 
 ul {

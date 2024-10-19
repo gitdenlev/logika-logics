@@ -55,12 +55,15 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+  cursor: url("/halloween/cursor.png"), auto;
 }
 
 body {
   min-height: 100vh;
   color: var(--color-text);
   background-color: #92d0ff;
+  /* Хеловін тема */
+  background-color: #7d460fa2;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -81,7 +84,9 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+    /* Додати це під час Хеловіна */
+    font-family: 'Creepster', cursive;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

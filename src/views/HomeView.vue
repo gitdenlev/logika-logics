@@ -10,34 +10,34 @@ import Burger from "../components/Burger.vue";
       <div class="info-and-facts">
         <div class="info-cards">
           <div class="card animate__animated animate__zoomInUp">
-            <img src="/progress.png" alt="progress" />
+            <img src="/halloween/halloween-date.png" alt="progress" />
             <div class="text-content">
-              <h2>Відстежування свого прогресу</h2>
-              <p>Зручно відстежуйте свої досягнення та результати</p>
+              <h2>Відстежування темного шляху</h2>
+              <p>Дізнавайтеся, наскільки далеко ви зайшли в своїй моторошній подорожі до знань.</p>
             </div>
           </div>
 
           <div class="card animate__animated animate__zoomInUp animate__delay-1s">
-            <img src="/study.png" alt="study" />
+            <img src="/halloween/mana.png" alt="study" />
             <div class="text-content">
-              <h2>Навчання із задоволенням</h2>
-              <p>Інтерактивні курси, що роблять навчання приємним</p>
+              <h2>Навчання з магією</h2>
+              <p>Чарівні курси, що перетворюють навчання на справжню пригоду</p>
             </div>
           </div>
 
           <div class="card animate__animated animate__zoomInUp animate__delay-2s">
-            <img src="/chat.png" alt="contact" />
+            <img src="/halloween/ghost.png" alt="contact" />
             <div class="text-content">
-              <h2>Залишайтеся на зв'язку</h2>
-              <p>Миттєвий доступ до спілкування з вашим викладачем</p>
+              <h2>Зв'язок зі світом привидів</h2>
+              <p>Спілкуйтеся миттєво та отримуйте мудрість прямо з потойбіччя</p>
             </div>
           </div>
 
           <div class="card animate__animated animate__zoomInUp animate__delay-3s">
-            <img src="/interface.png" alt="interface" />
+            <img src="/halloween/mirror.png" alt="interface" />
             <div class="text-content">
-              <h2>Зручний інтерфейс</h2>
-              <p>Інтуїтивний дизайн для максимальної ефективності</p>
+              <h2>Жуткий інтерфейс</h2>
+              <p>Інтуїтивний, але моторошний дизайн для того, щоб легко орієнтуватися в темних лабіринтах знань</p>
             </div>
           </div>
         </div>
@@ -118,6 +118,9 @@ import Burger from "../components/Burger.vue";
   font-weight: 600;
   font-size: 24px;
 }
+
+
+
 
 .text-content p {
   font-size: 16px;
