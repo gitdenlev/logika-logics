@@ -19,6 +19,20 @@ const students = [
     { name: "Пода Ілля", logics: ref(0) },
     { name: "Слабко Роман", logics: ref(0) },
   ],
+  [
+    { name: "Бобух Вероніка", logics: ref(0) },
+    { name: "Бутук Ярослав", logics: ref(0) },
+    { name: "Візіренко Юлія", logics: ref(0) },
+    { name: "Дейніченко Георгій", logics: ref(0) },
+    { name: "Матвиенко Данило", logics: ref(0) },
+    { name: "Моргуль Святослав", logics: ref(0) },
+    { name: "Мульський Ростислав", logics: ref(0) },
+    { name: "Пилипенко Арсеній", logics: ref(0) },
+    { name: "Русманенко Егор", logics: ref(0) },
+    { name: "Синєокий Данііл", logics: ref(0) },
+    { name: "Сокур Кирило", logics: ref(0) },
+    { name: "Чикаловський Станіслав", logics: ref(0) },
+  ],
 ];
 </script>
 
@@ -27,6 +41,6 @@ const students = [
     courseTitle="Курс Вебдизайн"
     courseIcon="/webdesign.png"
     :students="students"
-    :ranges="['Вебдизайн Субота 17:00!G3:G9', 'Вебдизайн Неділя 15:30!G3:G7']"
+    :ranges="['Вебдизайн Субота 17:00!G3:G9', 'Вебдизайн Неділя 15:30!G3:G7', 'Вебдизайн Субота 10:30!G3:G7']"
   />
 </template>
