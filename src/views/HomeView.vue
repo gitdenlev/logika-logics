@@ -13,11 +13,16 @@ import Burger from "../components/Burger.vue";
             <img src="/halloween/halloween-date.png" alt="progress" />
             <div class="text-content">
               <h2>Відстежування темного шляху</h2>
-              <p>Дізнавайтеся, наскільки далеко ви зайшли в своїй моторошній подорожі до знань.</p>
+              <p>
+                Дізнавайтеся, наскільки далеко ви зайшли в своїй моторошній
+                подорожі до знань.
+              </p>
             </div>
           </div>
 
-          <div class="card animate__animated animate__zoomInUp animate__delay-1s">
+          <div
+            class="card animate__animated animate__zoomInUp animate__delay-1s"
+          >
             <img src="/halloween/mana.png" alt="study" />
             <div class="text-content">
               <h2>Навчання з магією</h2>
@@ -25,29 +30,35 @@ import Burger from "../components/Burger.vue";
             </div>
           </div>
 
-          <div class="card animate__animated animate__zoomInUp animate__delay-2s">
+          <div
+            class="card animate__animated animate__zoomInUp animate__delay-2s"
+          >
             <img src="/halloween/ghost.png" alt="contact" />
             <div class="text-content">
               <h2>Зв'язок зі світом привидів</h2>
-              <p>Спілкуйтеся миттєво та отримуйте мудрість прямо з потойбіччя</p>
+              <p>
+                Спілкуйтеся миттєво та отримуйте мудрість прямо з потойбіччя
+              </p>
             </div>
           </div>
 
-          <div class="card animate__animated animate__zoomInUp animate__delay-3s">
+          <div
+            class="card animate__animated animate__zoomInUp animate__delay-3s"
+          >
             <img src="/halloween/mirror.png" alt="interface" />
             <div class="text-content">
               <h2>Жуткий інтерфейс</h2>
-              <p>Інтуїтивний, але моторошний дизайн для того, щоб легко орієнтуватися в темних лабіринтах знань</p>
+              <p>
+                Інтуїтивний, але моторошний дизайн для того, щоб легко
+                орієнтуватися в темних лабіринтах знань
+              </p>
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .content {
@@ -93,7 +104,9 @@ import Burger from "../components/Burger.vue";
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   border-radius: 30px;
   padding: 30px;
-  transition: transform 0.3s linear, box-shadow 0.3s linear;
+  transition:
+    transform 0.3s linear,
+    box-shadow 0.3s linear;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -118,9 +131,6 @@ import Burger from "../components/Burger.vue";
   font-weight: 600;
   font-size: 24px;
 }
-
-
-
 
 .text-content p {
   font-size: 16px;

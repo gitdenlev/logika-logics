@@ -40,7 +40,7 @@ const translateToUkrainian = async (text) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
 
     const translated = response.data.translations[0].text;
@@ -100,7 +100,9 @@ const getJoke = async () => {
     <Sidebar />
     <Burger />
     <div class="header">
-      <div class="course-info animate__animated animate__bounceIn animate__delay-1s">
+      <div
+        class="course-info animate__animated animate__bounceIn animate__delay-1s"
+      >
         <img src="/random.png" alt="random" class="course-icon" width="60" />
       </div>
       <h1 id="page-title"></h1>
@@ -160,7 +162,6 @@ const getJoke = async () => {
   </div>
 </template>
 
-
 <style scoped>
 /* Загальні стилі для основного контенту */
 .content {
@@ -218,8 +219,6 @@ const getJoke = async () => {
   width: 60px;
   height: 60px;
 }
-
-
 
 .course-info {
   display: flex;

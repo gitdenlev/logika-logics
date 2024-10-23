@@ -75,24 +75,22 @@ body {
     Inter,
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
     Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
-    /* Додати це під час Хеловіна */
-    font-family: 'Creepster', cursive;
+  /* Додати це під час Хеловіна */
+  font-family: "Creepster", cursive;
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
 
 /* Глобальна стилізація для всіх прокруток */
 ::-webkit-scrollbar {
@@ -104,7 +102,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.8); /* Білий колір для скролу з легкою прозорістю */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Білий колір для скролу з легкою прозорістю */
   border-radius: 10px; /* Закруглення кутів */
   border: 2px solid transparent; /* Прозорий бордер для відступів */
   background-clip: content-box; /* Відокремлення фону від бордеру */

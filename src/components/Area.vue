@@ -6,7 +6,6 @@ const requestLink = "https://api.api-ninjas.com/v1/loremipsum?paragraphs=2";
 
 const text = ref("");
 
-
 axios
   .get(requestLink, {
     headers: {

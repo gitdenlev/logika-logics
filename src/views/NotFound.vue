@@ -4,7 +4,7 @@
   <div class="not-found">
     <!-- <img src="/404.png" alt="not found" width="200" /> -->
     <!-- Хеловін тема -->
-     <img src="/halloween/reaper.png" alt="reaper" width="200">
+    <img src="/halloween/reaper.png" alt="reaper" width="200" />
     <p>Упс! Схоже, ця сторінка зникла в темряві ночі...</p>
     <div class="link">
       <router-link to="/">Повернутись до лігва</router-link>

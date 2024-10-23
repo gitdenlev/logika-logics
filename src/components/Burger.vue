@@ -43,7 +43,8 @@ ul {
   flex-wrap: wrap;
   gap: 15px;
   border-radius: 30px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0px 8px 20px rgba(0, 0, 0, 0.1),
     /* верхній слабкий шар */ 0px 15px 40px rgba(0, 0, 0, 0.2); /* нижній глибший шар */
 }
 

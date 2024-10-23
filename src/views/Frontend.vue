@@ -1,6 +1,6 @@
 <script setup>
-import Layout from '../components/Layout.vue';
-import { ref } from 'vue';
+import Layout from "../components/Layout.vue";
+import { ref } from "vue";
 const students = [
   [
     { name: "Войко Мирон", logics: ref(0) },
@@ -29,7 +29,9 @@ const students = [
     courseTitle="Курс Frontend"
     courseIcon="/frontend.png"
     :students="students"
-    :ranges="['Frontend Вівторок 18:30!G3:G12', 'Frontend П\'ятниця 19:00!G3:G7']"
+    :ranges="[
+      'Frontend Вівторок 18:30!G3:G12',
+      'Frontend П\'ятниця 19:00!G3:G7',
+    ]"
   />
 </template>
-

@@ -36,7 +36,9 @@ onMounted(() => {
   <div class="facts-container">
     <div v-if="isLoading" class="loader"></div>
     <p v-else class="fact-text" key="fact">{{ fact }}</p>
-    <button @click="getFact" class="new-fact-btn"><img src="/rotate-left.png" alt="rotate-left" width="40">Новий факт</button>
+    <button @click="getFact" class="new-fact-btn">
+      <img src="/rotate-left.png" alt="rotate-left" width="40" />Новий факт
+    </button>
   </div>
 </template>
 
@@ -68,9 +70,6 @@ onMounted(() => {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-
-
 
 .new-fact-btn:hover {
   background-color: #fff2f2;

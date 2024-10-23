@@ -84,7 +84,9 @@ import courses from "../data.js";
   text-decoration: none;
   padding: 10px;
   border-radius: 25px;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
   flex-grow: 0.1;
   text-align: center;
   color: white;

@@ -1,7 +1,7 @@
 <script setup>
 import Layout from "../components/Layout.vue";
 import { ref } from "vue";
-import '../assets/common-styles.css';
+import "../assets/common-styles.css";
 const students = [
   [
     { name: "Данильченко Кирило", logics: ref(0) },

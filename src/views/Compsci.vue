@@ -2,7 +2,7 @@
 
 <template>
   <div class="course">
-    <h1><img src="/sad.png" alt="sad" width="40"></h1>
+    <h1><img src="/sad.png" alt="sad" width="40" /></h1>
     <p>Поки що не має груп на цьому курсі</p>
     <router-link to="/">Повернутись на головну</router-link>
   </div>

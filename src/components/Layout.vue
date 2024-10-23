@@ -20,7 +20,7 @@ const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
 
 const urls = props.ranges.map(
   (range) =>
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`,
 );
 
 onMounted(async () => {

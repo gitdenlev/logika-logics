@@ -72,7 +72,7 @@ onMounted(async () => {
 
     <!-- Спінер завантаження -->
     <div class="loading" v-if="loading">
-      <img src="/logo.svg" alt="logo" width="40" />
+      <img src="/halloween/skull.png" alt="logo" width="80" />
     </div>
 
     <!-- Таблиця -->
