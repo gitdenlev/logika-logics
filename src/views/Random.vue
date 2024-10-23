@@ -108,9 +108,10 @@ const getJoke = async () => {
 
     <div class="info-and-sections">
       <!-- Секція 1: Цікаві факти -->
-      <div class="section-card">
+      <div class="section-card animate__animated animate__headShake">
         <div class="card-header">
-          <img src="/facts-book.png" alt="facts" />
+          <!-- <img src="/facts-book.png" alt="facts" /> -->
+          <img src="/halloween/magic-book.png" alt="magic-book" />
           <h2>Цікаві факти</h2>
         </div>
         <div class="text-content">
@@ -123,18 +124,19 @@ const getJoke = async () => {
         <button @click="getFact" class="generate-btn" :disabled="isLoadingFact">
           <img
             :class="isLoadingFact ? 'spin' : ''"
-            src="/rotate-left.png"
+            src="/halloween/monster.png"
             alt="rotate"
-            width="30px"
+            width="60px"
           />
           {{ isLoadingFact ? "Завантаження..." : "Новий факт" }}
         </button>
       </div>
 
       <!-- Секція 2: Жарти -->
-      <div class="section-card">
+      <div class="section-card animate__animated animate__headShake">
         <div class="card-header">
-          <img src="/comedy.png" alt="comedy" />
+          <!-- <img src="/comedy.png" alt="comedy" /> -->
+          <img src="/halloween/vampire.png" alt="vampire" />
           <h2>Жарти</h2>
         </div>
         <div class="text-content">
@@ -147,7 +149,7 @@ const getJoke = async () => {
         <button @click="getJoke" class="generate-btn" :disabled="isLoadingJoke">
           <img
             :class="isLoadingJoke ? 'spin' : ''"
-            src="/rotate-left.png"
+            src="/halloween/monster.png"
             alt="rotate"
             width="30px"
           />
@@ -239,14 +241,16 @@ const getJoke = async () => {
 }
 
 .generate-btn {
-  background-color: #91cfff;
+  /* background-color: #91cfff; */
+  /* Хеловін тема */
+  background-color: #acb03f;
   border: none;
   outline: none;
   border-radius: 8px;
   padding: 12px 20px;
-  cursor: pointer;
+  /* cursor: pointer; */
   margin-top: 20px;
-  width: 100%; /* Змінюємо ширину на 100% для адаптивності */
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,13 +259,12 @@ const getJoke = async () => {
   transition: background-color 0.3s ease;
 }
 
-.generate-btn:hover {
+/* .generate-btn:hover {
   background-color: #78b3e0;
-}
+} */
 
 .generate-btn img {
-  width: 25px;
-  height: 25px;
+  width: 30px;
 }
 
 .generate-btn:disabled {

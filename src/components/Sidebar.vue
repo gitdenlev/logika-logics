@@ -43,7 +43,7 @@ import courses from "../data.js";
   position: fixed;
   left: 0;
   top: 0;
-  height: 100%;
+  height: 100vh;
   /* Хеловін тема */
   background-color: #2b1a29; /* Темний фон для сайдбара */
   background: linear-gradient(to bottom, #3d2b3c, #2b1a29); /* Градієнт */
@@ -180,13 +180,6 @@ import courses from "../data.js";
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   max-width: 300px; /* Обмеження ширини */
   margin-bottom: 15px;
-}
-
-.halloween-info::after {
-  content: url(/halloween/halloween-banner.png);
-  position: absolute;
-  left: 75%;
-  top: 72%;
 }
 
 .halloween-info h2 {
