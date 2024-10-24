@@ -2,6 +2,7 @@
 import Layout from "../components/Layout.vue";
 import { ref } from "vue";
 import "../assets/common-styles.css";
+import { sheets } from "googleapis/build/src/apis/sheets";
 const students = [
   [
     { name: "Данильченко Кирило", logics: ref(0) },
@@ -34,6 +35,14 @@ const students = [
     { name: "Чикаловський Станіслав", logics: ref(0) },
   ],
 ];
+
+
+const ranges = [
+  "'Вебдизайн Субота 17:00'!G3:G9",
+  "'Вебдизайн Неділя 15:30'!G3:G7",
+  "'Вебдизайн Субота 10:30'!G3:G14",
+];
+
 </script>
 
 <template>
@@ -41,10 +50,6 @@ const students = [
     courseTitle="Курс Вебдизайн"
     courseIcon="/webdesign.png"
     :students="students"
-    :ranges="[
-      'Вебдизайн Субота 17:00!G3:G9',
-      'Вебдизайн Неділя 15:30!G3:G7',
-      'Вебдизайн Субота 10:30!G3:G14',
-    ]"
+    :ranges="ranges"
   />
 </template>
