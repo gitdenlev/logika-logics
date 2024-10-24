@@ -81,7 +81,7 @@ onMounted(async () => {
           <tbody>
             <tr v-for="student in group" :key="student.name">
               <td class="student-name">{{ student.name }}</td>
-              <td class="logics">{{ student.logics.value }}</td>
+              <td class="logics">{{ student.logics}}</td>
             </tr>
           </tbody>
         </table>
