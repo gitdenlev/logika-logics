@@ -31,11 +31,24 @@ onMounted(async () => {
 
     // Оновлюємо дані учнів для кожної групи
     sheetsData.forEach((data, groupIndex) => {
-      data.forEach((row, studentIndex) => {
-        if (row[0] !== undefined) {
-          props.students[groupIndex][studentIndex].logics.value = row[0];
-        }
-      });
+      if (props.students[groupIndex]) {
+        // Перевіряємо, чи існує група
+        data.forEach((row, studentIndex) => {
+          // Перевіряємо, чи є дані в рядку та чи існує студент
+          if (
+            row[0] !== undefined &&
+            props.students[groupIndex][studentIndex]
+          ) {
+            props.students[groupIndex][studentIndex].logics.value = row[0];
+          } else {
+            console.warn(
+              `Student or data missing for group ${groupIndex}, student ${studentIndex}`
+            );
+          }
+        });
+      } else {
+        console.warn(`Group ${groupIndex} is undefined`);
+      }
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -60,7 +73,12 @@ onMounted(async () => {
       <div
         class="course-info animate__animated animate__bounceIn animate__delay-1s"
       >
-        <img :src="courseIcon" alt="course icon" class="course-icon" width="60" />
+        <img
+          :src="courseIcon"
+          alt="course icon"
+          class="course-icon"
+          width="60"
+        />
       </div>
       <h1 id="course-title"></h1>
     </div>
@@ -81,7 +99,7 @@ onMounted(async () => {
           <tbody>
             <tr v-for="student in group" :key="student.name">
               <td class="student-name">{{ student.name }}</td>
-              <td class="logics">{{ student.logics}}</td>
+              <td class="logics">{{ student.logics.value }}</td>
             </tr>
           </tbody>
         </table>
