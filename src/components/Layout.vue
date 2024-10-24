@@ -18,9 +18,10 @@ const loading = ref(true); // Стан завантаження
 const apiKey = import.meta.env.VITE_API_KEY;
 const spreadsheetId = import.meta.env.VITE_SPREADSHEET_ID;
 
+// Створюємо URL для кожного діапазону
 const urls = props.ranges.map(
   (range) =>
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
 );
 
 onMounted(async () => {
@@ -28,16 +29,13 @@ onMounted(async () => {
     const responses = await axios.all(urls.map((url) => axios.get(url)));
     const sheetsData = responses.map((response) => response.data.values);
 
-    props.students[0].forEach((student, index) => {
-      if (sheetsData[1][index] && sheetsData[1][index][0] !== undefined) {
-        student.logics.value = sheetsData[1][index][0]; // Дані для першої групи
-      }
-    });
-
-    props.students[1].forEach((student, index) => {
-      if (sheetsData[0][index] && sheetsData[0][index][0] !== undefined) {
-        student.logics.value = sheetsData[0][index][0]; // Дані для другої групи
-      }
+    // Оновлюємо дані учнів для кожної групи
+    sheetsData.forEach((data, groupIndex) => {
+      data.forEach((row, studentIndex) => {
+        if (row[0] !== undefined) {
+          props.students[groupIndex][studentIndex].logics.value = row[0];
+        }
+      });
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -62,41 +60,33 @@ onMounted(async () => {
       <div
         class="course-info animate__animated animate__bounceIn animate__delay-1s"
       >
-        <img :src="courseIcon" alt="frontend" class="course-icon" width="60" />
+        <img :src="courseIcon" alt="course icon" class="course-icon" width="60" />
       </div>
       <h1 id="course-title"></h1>
     </div>
 
     <div class="loading" v-if="loading">
-      <img src="/halloween/skull.png" alt="logo" width="80" />
+      <img src="/halloween/skull.png" alt="loading" width="80" />
     </div>
 
     <div class="halloween-container" v-else>
-      <table class="logics-table">
-        <thead>
-          <tr>
-            <th class="student-name-title">Учень</th>
-            <th>Кількість логіків</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="student in students[0]" :key="student.name">
-            <td class="student-name">{{ student.name }}</td>
-            <td class="logics">{{ student.logics.value }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="group-separator"></div>
-
-      <table class="logics-table">
-        <tbody>
-          <tr v-for="student in students[1]" :key="student.name">
-            <td class="student-name">{{ student.name }}</td>
-            <td class="logics">{{ student.logics.value }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div v-for="(group, index) in students" :key="index" class="group-table">
+        <table class="logics-table">
+          <thead>
+            <tr>
+              <th class="student-name-title">Учень</th>
+              <th>Кількість логіків</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="student in group" :key="student.name">
+              <td class="student-name">{{ student.name }}</td>
+              <td class="logics">{{ student.logics.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="group-separator"></div>
+      </div>
     </div>
   </div>
 </template>

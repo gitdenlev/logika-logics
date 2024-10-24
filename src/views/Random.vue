@@ -267,7 +267,8 @@ const getJoke = async () => {
 }
 
 .generate-btn:disabled {
-  background-color: #b3d6f8;
+  background-color: grey;
+  color: #fff;
   cursor: not-allowed;
 }
 
