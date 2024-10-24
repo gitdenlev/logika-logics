@@ -30,8 +30,8 @@ const students = [
     courseIcon="/frontend.png"
     :students="students"
     :ranges="[
-      'Frontend Вівторок 18:30!G3:G12',
       'Frontend П\'ятниця 19:00!G3:G7',
+      'Frontend Вівторок 18:30!G3:G12',
     ]"
   />
 </template>
