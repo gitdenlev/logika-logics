@@ -12,6 +12,7 @@ const students = [
     { name: "Осадчий Святослав", logics: ref(0) },
     { name: "Скрябіна Марія", logics: ref(0) },
     { name: "Суптеля Ярослав", logics: ref(0) },
+    { name: "Мільчевський Єгор", logics: ref(0) },
   ],
 ];
 </script>
@@ -21,6 +22,6 @@ const students = [
     courseTitle="Курс Геймдизайн"
     courseIcon="/gamedesign.png"
     :students="students"
-    :ranges="['Геймдизайн Неділя 14:00!G3:G10']"
+    :ranges="['Геймдизайн Неділя 14:00!G3:G11']"
   />
 </template>
