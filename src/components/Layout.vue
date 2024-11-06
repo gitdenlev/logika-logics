@@ -84,7 +84,7 @@ onMounted(async () => {
     </div>
 
     <div class="loading" v-if="loading">
-      <img src="/halloween/skull.png" alt="loading" width="80" />
+      <img src="/logo.svg" alt="loading" width="50" />
     </div>
 
     <div class="halloween-container" v-else>

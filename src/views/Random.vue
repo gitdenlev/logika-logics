@@ -2,23 +2,12 @@
 import Sidebar from "../components/Sidebar.vue";
 import Burger from "../components/Burger.vue";
 import { onMounted, ref } from "vue";
-import axios from "axios";
 import TypeIt from "typeit";
 
-// Початковий текст та стан завантаження
 const joke = ref("Тут повинна з'являтись смішнявка");
 const fact = ref("Прокачай свій мозок");
 const isLoadingFact = ref(false);
 const isLoadingJoke = ref(false);
-
-onMounted(async () => {
-  new TypeIt("#page-title", {
-    strings: "Зона випадковостей",
-    speed: 100,
-    loop: false,
-    cursor: false,
-  }).go();
-});
 
 const FACTS_API_KEY = "mhJRXH+Xgp7RDsJU6SSe8Q==4oF7MK9Rb1RWqRhx";
 const API_LINK_FACTS = "https://api.api-ninjas.com/v1/facts"; // Додали API посилання для фактів
@@ -26,71 +15,92 @@ const API_LINK_JOKES = "https://api.api-ninjas.com/v1/jokes"; // Додали AP
 const DEEPL_API_KEY = "ecda2158-af7d-4d3e-966c-c3878d43d690:fx"; // Ваш ключ до DeepL API
 const DEEPL_API_URL = "https://api-free.deepl.com/v2/translate"; // URL для API DeepL
 
-// Функція для перекладу тексту на українську мову через DeepL
-const translateToUkrainian = async (text) => {
-  try {
-    const response = await axios.post(
-      DEEPL_API_URL,
-      new URLSearchParams({
-        auth_key: DEEPL_API_KEY,
-        text: text,
-        target_lang: "UK", // Цільова мова українська
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
-    );
-
-    const translated = response.data.translations[0].text;
-    return translated;
-  } catch (error) {
-    console.error("Помилка при перекладі:", error);
-    return "Помилка при перекладі.";
-  }
+// Ініціалізація gapi
+const initializeGapi = () => {
+  gapi.load("client", async () => {
+    try {
+      await gapi.client.init({
+        apiKey: "YOUR_GOOGLE_API_KEY", // Твій API ключ
+      });
+    } catch (error) {
+      console.error("Error initializing gapi:", error);
+    }
+  });
 };
 
-// Функція для отримання факту
-const getFact = async () => {
-  isLoadingFact.value = true;
+onMounted(() => {
+  new TypeIt("#page-title", {
+    strings: "Зона випадковостей",
+    speed: 100,
+    loop: false,
+    cursor: false,
+  }).go();
+
+  // Ініціалізуємо gapi після завантаження компонента
+  initializeGapi();
+});
+
+// Функція для отримання жарту через gapi
+const getJoke = async () => {
+  isLoadingJoke.value = true;
 
   try {
-    // Отримуємо новий факт
-    const response = await axios.get(API_LINK_FACTS, {
+    const response = await gapi.client.request({
+      path: "https://api.api-ninjas.com/v1/jokes",
       headers: {
         "X-Api-Key": FACTS_API_KEY,
       },
     });
 
-    const newFact = response.data[0].fact; // Отримуємо новий факт
-    const translated = await translateToUkrainian(newFact); // Перекладаємо факт
-    fact.value = translated; // Одразу відображаємо перекладений факт
+    const newJoke = response.result[0].joke;
+    joke.value = await translateToUkrainian(newJoke);
+  } catch (error) {
+    joke.value = "Сталася помилка при завантаженні жарту.";
+    console.error("Error fetching joke:", error);
+  } finally {
+    isLoadingJoke.value = false;
+  }
+};
+
+// Функція для отримання факту через gapi
+const getFact = async () => {
+  isLoadingFact.value = true;
+
+  try {
+    const response = await gapi.client.request({
+      path: "https://api.api-ninjas.com/v1/facts",
+      headers: {
+        "X-Api-Key": FACTS_API_KEY,
+      },
+    });
+
+    const newFact = response.result[0].fact;
+    fact.value = await translateToUkrainian(newFact);
   } catch (error) {
     fact.value = "Сталася помилка при завантаженні факту.";
+    console.error("Error fetching fact:", error);
   } finally {
     isLoadingFact.value = false;
   }
 };
 
-// Функція для отримання жарту
-const getJoke = async () => {
-  isLoadingJoke.value = true;
-
+// Функція для перекладу тексту на українську через gapi (DeepL API)
+const translateToUkrainian = async (text) => {
   try {
-    // Отримуємо новий жарт
-    const response = await axios.get(API_LINK_JOKES, {
-      headers: {
-        "X-Api-Key": FACTS_API_KEY,
+    const response = await gapi.client.request({
+      path: "https://api-free.deepl.com/v2/translate",
+      method: "POST",
+      params: {
+        auth_key: DEEPL_API_KEY,
+        text: text,
+        target_lang: "UK",
       },
     });
 
-    const newJoke = response.data[0].joke; // Отримуємо новий жарт
-    joke.value = await translateToUkrainian(newJoke); // Перекладаємо жарт на українську
+    return response.result.translations[0].text;
   } catch (error) {
-    joke.value = "Сталася помилка при завантаженні жарту.";
-  } finally {
-    isLoadingJoke.value = false;
+    console.error("Помилка при перекладі:", error);
+    return "Помилка при перекладі.";
   }
 };
 </script>
@@ -112,21 +122,18 @@ const getJoke = async () => {
       <!-- Секція 1: Цікаві факти -->
       <div class="section-card animate__animated animate__headShake">
         <div class="card-header">
-          <!-- <img src="/facts-book.png" alt="facts" /> -->
-          <img src="/halloween/magic-book.png" alt="magic-book" />
+          <img src="/facts-book.png" alt="magic-book" />
           <h2>Цікаві факти</h2>
         </div>
         <div class="text-content">
-          <!-- Відображаємо перекладений факт -->
           <p class="translated-text">
             <i>{{ fact }}</i>
           </p>
         </div>
-        <!-- Додаємо клас 'spin' під час завантаження факту -->
         <button @click="getFact" class="generate-btn" :disabled="isLoadingFact">
           <img
             :class="isLoadingFact ? 'spin' : ''"
-            src="/halloween/monster.png"
+            src="/rotate-left.png"
             alt="rotate"
             width="60px"
           />
@@ -137,21 +144,18 @@ const getJoke = async () => {
       <!-- Секція 2: Жарти -->
       <div class="section-card animate__animated animate__headShake">
         <div class="card-header">
-          <!-- <img src="/comedy.png" alt="comedy" /> -->
-          <img src="/halloween/vampire.png" alt="vampire" />
+          <img src="/comedy.png" alt="vampire" />
           <h2>Жарти</h2>
         </div>
         <div class="text-content">
-          <!-- Відображаємо жарт -->
           <p class="translated-text">
             <i>{{ joke }}</i>
           </p>
         </div>
-        <!-- Додаємо клас 'spin' під час завантаження жарту -->
         <button @click="getJoke" class="generate-btn" :disabled="isLoadingJoke">
           <img
             :class="isLoadingJoke ? 'spin' : ''"
-            src="/halloween/monster.png"
+            src="/rotate-left.png"
             alt="rotate"
             width="30px"
           />
@@ -161,6 +165,7 @@ const getJoke = async () => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 /* Загальні стилі для основного контенту */
@@ -212,7 +217,7 @@ const getJoke = async () => {
 
 .card-header h2 {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .card-header img {
@@ -240,14 +245,12 @@ const getJoke = async () => {
 }
 
 .generate-btn {
-  /* background-color: #91cfff; */
-  /* Хеловін тема */
-  background-color: #acb03f;
+  background-color: #91cfff;
   border: none;
   outline: none;
   border-radius: 8px;
   padding: 12px 20px;
-  /* cursor: pointer; */
+  cursor: pointer;
   margin-top: 20px;
   width: 100%;
   display: flex;
@@ -258,16 +261,16 @@ const getJoke = async () => {
   transition: background-color 0.3s ease;
 }
 
-/* .generate-btn:hover {
+.generate-btn:hover {
   background-color: #78b3e0;
-} */
+}
 
 .generate-btn img {
   width: 30px;
 }
 
 .generate-btn:disabled {
-  background-color: grey;
+  background-color: #78b3e06d;
   color: #fff;
   cursor: not-allowed;
 }
@@ -342,7 +345,7 @@ const getJoke = async () => {
   }
 }
 #page-title {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 769px) {
@@ -363,3 +366,7 @@ const getJoke = async () => {
   font-weight: bold;
 }
 </style>
+
+
+
+

@@ -2,7 +2,6 @@
 import Layout from "../components/Layout.vue";
 import { ref } from "vue";
 import "../assets/common-styles.css";
-import { sheets } from "googleapis/build/src/apis/sheets";
 const students = [
   [
     { name: "Данильченко Кирило", logics: ref(0) },

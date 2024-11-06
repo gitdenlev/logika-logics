@@ -4,13 +4,6 @@
   margin-left: 250px; /* Відступ для сайдбару */
 }
 
-.content::before {
-  content: url("/halloween/spider-web.png");
-  position: fixed;
-  top: 93%;
-  right: -30px;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -43,17 +36,15 @@
 th,
 td {
   padding: 15px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 th {
-  /* background: linear-gradient(145deg, #3498db, #2980b9); */
-  /* Хеловін тема */
-  background-color: #abaf3f;
-  color: black;
+  background: linear-gradient(145deg, #3498db, #2980b9);
+  color: #f1f1f1;
   font-size: 1.1rem;
   position: relative;
-  /* border-bottom: 2px solid #2980b9; */
+  border-bottom: 2px solid #2980b9;
 }
 
 th {
@@ -186,50 +177,5 @@ tbody tr:hover {
   }
 }
 #course-title {
-  font-weight: bold;
-}
-
-/* Хеловін тема */
-.halloween-container::before {
-  content: url(/halloween/bat.png);
-  display: block;
-  position: fixed;
-  right: 5%;
-  z-index: 1;
-  animation: bat 10s linear infinite;
-}
-
-@media screen and (max-width: 768px) {
-  .halloween-container::before {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .halloween-container::before {
-    position: absolute;
-    top: 4%;
-    right: 5%;
-  }
-}
-
-/* Хеловін тема */
-@keyframes bat {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-20px) translateX(10px) rotate(-5deg);
-  }
-  50% {
-    transform: translateY(-40px) translateX(0px) rotate(5deg);
-  }
-  75% {
-    transform: translateY(-20px) translateX(-10px) rotate(-5deg);
-  }
-  100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
+  font-weight: 500;
 }
