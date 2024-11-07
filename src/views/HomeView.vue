@@ -42,10 +42,9 @@ import Burger from "../components/Burger.vue";
           >
             <img src="/interface.png" alt="interface" />
             <div class="text-content">
-              <h2>Жуткий інтерфейс</h2>
+              <h2>Зручний інтерфейс</h2>
               <p>
-                Інтуїтивний, але моторошний дизайн для того, щоб легко
-                орієнтуватися в темних лабіринтах знань
+                Інтуїтивний та простий у використанні інтерфейс
               </p>
             </div>
           </div>
@@ -81,6 +80,7 @@ import Burger from "../components/Burger.vue";
   .info-cards {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
   }
 
   .card {
@@ -96,41 +96,53 @@ import Burger from "../components/Burger.vue";
 }
 
 .card {
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
-  border-radius: 30px;
-  padding: 30px;
-  transition:
-    transform 0.3s linear,
-    box-shadow 0.3s linear;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 3px solid #5a94ce;
 }
 
-.card:hover {
-  box-shadow: 10px 10px 30px 10px rgba(0, 0, 0, 0.15);
+.card:first-child {
+  transform: rotate(-5deg);
+}
+
+.card:nth-child(2) {
+  transform: rotate(5deg);
+  margin-top: 20px;
+}
+
+.card:nth-child(3) {
+  transform: rotate(-5deg);
+  margin-top: 20px;
+}
+
+.card:nth-child(4) {
+  transform: rotate(5deg);
+  margin-top: 20px;
 }
 
 .card img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   margin-bottom: 20px;
-  transition: transform 0.3s ease;
-}
-
-.card:hover img {
-  transform: scale(1.1);
 }
 
 .text-content h2 {
   margin-bottom: 15px;
-  color: #333;
-  font-weight: 600;
+  color: #222;
+  font-weight: 700;
   font-size: 24px;
 }
 
 .text-content p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: black;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #666;
 }
 
 @media screen and (max-width: 768px) {
@@ -148,8 +160,8 @@ import Burger from "../components/Burger.vue";
   }
 
   .card img {
-    width: 60px;
-    height: 60px;
+    width: 75px;
+    height: 75px;
   }
 }
 </style>

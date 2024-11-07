@@ -3,7 +3,7 @@
 <template>
   <div class="not-found">
     <img src="/404.png" alt="not found" width="200" />
-    <p>Упс! Схоже, ця сторінка зникла в темряві ночі...</p>
+    <p>Упс! Схоже, такої сторінки не існує</p>
     <div class="link">
       <router-link to="/">Повернутись на головну</router-link>
     </div>
