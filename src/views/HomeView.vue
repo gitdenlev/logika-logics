@@ -43,9 +43,7 @@ import Burger from "../components/Burger.vue";
             <img src="/interface.png" alt="interface" />
             <div class="text-content">
               <h2>Зручний інтерфейс</h2>
-              <p>
-                Інтуїтивний та простий у використанні інтерфейс
-              </p>
+              <p>Інтуїтивний та простий у використанні інтерфейс</p>
             </div>
           </div>
         </div>
@@ -57,7 +55,7 @@ import Burger from "../components/Burger.vue";
 <style scoped>
 .content {
   display: flex;
-  margin-left: 250px;
+  margin-left: 150px;
   padding: 20px;
 }
 
@@ -65,7 +63,7 @@ import Burger from "../components/Burger.vue";
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
 .info-cards {
@@ -101,7 +99,6 @@ import Burger from "../components/Burger.vue";
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   background: #fff;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   border: 3px solid #5a94ce;
@@ -145,6 +142,36 @@ import Burger from "../components/Burger.vue";
   color: #666;
 }
 
+.card:first-child::before {
+  content: url("/orange-circle.png");
+  position: absolute;
+  top: -50px;
+  left: 50%;
+}
+
+
+.card:nth-child(2)::before {
+  content: url("/green-circle.png");
+  position: absolute;
+  top: -50px;
+  left: 50%;
+}
+
+
+.card:first-child::before {
+  content: url("/orange-circle.png");
+  position: absolute;
+  top: -50px;
+  left: 50%;
+}
+
+.card:first-child::before {
+  content: url("/orange-circle.png");
+  position: absolute;
+  top: -50px;
+  left: 50%;
+}
+
 @media screen and (max-width: 768px) {
   .content {
     margin-left: 0;
@@ -163,5 +190,24 @@ import Burger from "../components/Burger.vue";
     width: 75px;
     height: 75px;
   }
+}
+
+@media screen and (min-width: 769px) {
+  .content {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  .content {
+    margin-left: 250px;
+  }
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 </style>

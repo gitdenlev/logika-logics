@@ -192,13 +192,7 @@ tbody tr:hover {
   }
 }
 
-@media screen and (width > 1400px) {
-  .content {
-    margin-left: 300px;
-    width: 80%;
-    transition: all 0.3s linear;
-  }
-}
+
 #course-title {
   font-weight: 500;
 }
