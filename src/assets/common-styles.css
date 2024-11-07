@@ -1,7 +1,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  margin-left: 250px; /* Відступ для сайдбару */
+  margin-left: 150px;
 }
 
 .header {
@@ -144,7 +144,7 @@ tbody tr:hover {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
   .content {
     margin-left: 0px;
     width: 100%;
@@ -171,15 +171,32 @@ tbody tr:hover {
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1024px) and (max-width: 1198px) {
   .content {
     margin-left: 350px;
+    transition: all 0.3s linear;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1199px) {
   .content {
-    margin-left: 400px;
+    margin-left: 350px;
+    transition: all 0.3s linear;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .content {
+    margin-left: 300px;
+    transition: all 0.3s linear;
+  }
+}
+
+@media screen and (width > 1400px) {
+  .content {
+    margin-left: 300px;
+    width: 80%;
+    transition: all 0.3s linear;
   }
 }
 #course-title {

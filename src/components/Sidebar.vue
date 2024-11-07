@@ -111,7 +111,7 @@ import courses from "../data.js";
 }
 
 
-@media screen and (min-width: 360px) and (max-width: 768px) {
+@media screen and (min-width: 360px) and (max-width: 1023px) {
   .sidebar {
     display: none;
   }

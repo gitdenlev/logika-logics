@@ -150,7 +150,7 @@ li img:hover {
   margin: 15px auto;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1023px) {
   .burger-icon,
   .burger-menu {
     display: none;
