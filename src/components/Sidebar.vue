@@ -25,8 +25,8 @@ import courses from "../data.js";
     </ul>
 
     <a class="contact-button" href="https://t.me/denyalove" target="_blank"
-      >Написати викладачу</a
-    >
+      >Написати викладачу
+    </a>
   </div>
 </template>
 
@@ -101,7 +101,7 @@ import courses from "../data.js";
   gap: 10px;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #027ffc; /* Колір кнопки */
+  background-color: #027ffc;
   border-radius: 30px;
   text-align: center;
   color: white;
@@ -109,7 +109,6 @@ import courses from "../data.js";
   font-size: 1.2rem;
   font-weight: 500;
 }
-
 
 @media screen and (min-width: 360px) and (max-width: 1023px) {
   .sidebar {
