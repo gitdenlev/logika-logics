@@ -1,5 +1,10 @@
 <script setup>
 import courses from "../data.js";
+import { ref } from "vue";
+
+const isVisibleChat = ref(false)
+
+
 </script>
 
 <template>
@@ -23,6 +28,13 @@ import courses from "../data.js";
         </div>
       </li>
     </ul>
+
+
+    <div>
+
+    </div>
+
+   
 
     <a class="contact-button" href="https://t.me/denyalove" target="_blank"
       >Написати викладачу
@@ -115,4 +127,19 @@ import courses from "../data.js";
     display: none;
   }
 }
+
+
+.chat {
+  border: 2px solid #3599db;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chat:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
 </style>
+

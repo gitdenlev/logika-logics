@@ -9,7 +9,6 @@ const students = [
     { name: "Головенко Василь", logics: ref(0) },
     { name: "Кисельов Артем", logics: ref(0) },
     { name: "Леміш Аліна", logics: ref(0) },
-    { name: "Лозова Олександра", logics: ref(0) },
     { name: "Хоменко Матвій", logics: ref(0) },
     { name: "Шматов Богдан", logics: ref(0) },
   ],

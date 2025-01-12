@@ -4,22 +4,6 @@ import { ref } from "vue";
 import "../assets/common-styles.css";
 const students = [
   [
-    { name: "Данильченко Кирило", logics: ref(0) },
-    { name: "Леміш Аліна", logics: ref(0) },
-    { name: "Мирошниченко Андрій", logics: ref(0) },
-    { name: "Семенов Артур", logics: ref(0) },
-    { name: "Хом'як Нікіта", logics: ref(0) },
-  ],
-  [
-    { name: "Березень Олександра", logics: ref(0) },
-    { name: "Дупак Володимир", logics: ref(0) },
-    { name: "Кірков Євген", logics: ref(0) },
-    { name: "Оленів Микита", logics: ref(0) },
-    { name: "Онищенко Володимир", logics: ref(0) },
-    { name: "Пода Ілля", logics: ref(0) },
-    { name: "Слабко Роман", logics: ref(0) },
-  ],
-  [
     { name: "Бобух Вероніка", logics: ref(0) },
     { name: "Бутук Ярослав", logics: ref(0) },
     { name: "Візіренко Юлія", logics: ref(0) },
@@ -35,11 +19,7 @@ const students = [
   ],
 ];
 
-const ranges = [
-  "'Вебдизайн Неділя 15:30'!G3:G7",
-  "'Вебдизайн Субота 17:00'!G3:G9",
-  "'Вебдизайн Субота 10:30'!G3:G14",
-];
+students[0].sort((a, b) => a.name.localeCompare(b.name));
 </script>
 
 <template>
@@ -47,6 +27,6 @@ const ranges = [
     courseTitle="Курс Вебдизайн"
     courseIcon="/webdesign.png"
     :students="students"
-    :ranges="ranges"
+    :ranges="['Вебдизайн Субота 10:30!G3:G14']"
   />
 </template>

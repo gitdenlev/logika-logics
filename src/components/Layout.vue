@@ -87,7 +87,7 @@ onMounted(async () => {
       <img src="/logo.svg" alt="loading" width="50" />
     </div>
 
-    <div class="halloween-container" v-else>
+    <div v-else>
       <div v-for="(group, index) in students" :key="index" class="group-table">
         <table class="logics-table">
           <thead>

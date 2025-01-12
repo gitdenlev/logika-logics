@@ -6,6 +6,8 @@ import Gamedesign from "../views/Gamedesign.vue";
 import Webdesign from "../views/Webdesign.vue";
 import Python from "../views/Python.vue";
 import Frontend from "../views/Frontend.vue";
+import Compsci from "../views/Compsci.vue";
+import GraphicDesign from "../views/GraphicDesign.vue";
 
 export default createRouter({
   history: createWebHistory(),
@@ -15,12 +17,20 @@ export default createRouter({
       component: HomeView,
     },
     {
+      path: "/compsci",
+      component: Compsci
+    },
+    {
       path: "/scratch",
       component: Scratch,
     },
     {
       path: "/gamedesign",
       component: Gamedesign,
+    },
+    {
+      path: "/graphicdesign",
+      component: GraphicDesign
     },
     {
       path: "/webdesign",
